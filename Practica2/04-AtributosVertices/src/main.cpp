@@ -33,7 +33,10 @@ const GLchar* fragmentShaderSource = { "#version 400\n"
 "  out_Color = vec4(ourColor, 1.0);\n"
 "}\n" };
 
-GLuint VBO, VAO;
+
+bool render1 = true;
+
+GLuint VBO, VAO, VBO2, VAO2;
 GLint vertexShader, fragmentShader, shaderProgram;
 
 typedef struct {
@@ -157,6 +160,13 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 		{ { 0.0f,  0.5f, 0.0f } ,{ 0.0f, 0.0f, 1.0f } }
 	};
 
+	Vertex vertices2[] =
+	{
+		{ { 0.0f, 0.0f, 0.0f } ,{ 1.0f, 0.0f, 0.0f } },
+		{ { 1.0f, 0.0f, 0.0f } ,{ 1.0f, 0.0f, 0.0f } },
+		{ { 1.0f, 1.0f, 0.0f } ,{ 1.0f, 0.0f, 0.0f } }
+	};
+
 	const size_t bufferSize = sizeof(vertices);
 	const size_t vertexSize = sizeof(vertices[0]);
 	const size_t rgbOffset = sizeof(vertices[0].XYZ);
@@ -164,7 +174,8 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 	std::cout << "Buffer Size:" << bufferSize << std::endl;
 	std::cout << "Vertex Size:" << vertexSize << std::endl;
 	std::cout << "Buffer size:" << rgbOffset << std::endl;
-
+	
+	//esto es para el primer tirnagulo
 	glGenBuffers(1, &VBO);
 
 	glGenVertexArrays(1, &VAO);
@@ -182,7 +193,34 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
+	//esto es para el segundo tirnagulo
+
+	const size_t bufferSize2 = sizeof(vertices2);
+	const size_t vertexSize2 = sizeof(vertices2[0]);
+	const size_t rgbOffset2 = sizeof(vertices2[0].XYZ);
+
+	std::cout << "Buffer Size:" << bufferSize2 << std::endl;
+	std::cout << "Vertex Size:" << vertexSize2 << std::endl;
+	std::cout << "Buffer size:" << rgbOffset2 << std::endl;
+	glGenBuffers(1, &VBO2);
+
+	glGenVertexArrays(1, &VAO2);
+	glBindVertexArray(VAO2);
+
+	glBindBuffer(GL_ARRAY_BUFFER, VBO2);
+	glBufferData(GL_ARRAY_BUFFER, bufferSize2, vertices2, GL_STATIC_DRAW);
+
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, vertexSize2, 0);
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, vertexSize2,
+		(GLvoid*)rgbOffset2);
+
+	glEnableVertexAttribArray(0);
+	glEnableVertexAttribArray(1);
+
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindVertexArray(0);
 }
+
 
 void destroyWindow() {
 	glfwDestroyWindow(window);
@@ -222,6 +260,12 @@ void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mode
 		switch (key) {
 		case GLFW_KEY_ESCAPE:
 			exitApp = true;
+			break;
+		case GLFW_KEY_F:
+			render1 = true;
+			break;
+		case GLFW_KEY_S:
+			render1 = false;
 			break;
 		}
 	}
@@ -267,10 +311,16 @@ void applicationLoop() {
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 		
 		glUseProgram(shaderProgram);
-		glBindVertexArray(VAO);
-		glDrawArrays(GL_TRIANGLES, 0, 3);
+		if(render1) {
+			glBindVertexArray(VAO);
+			//si queremos manejar mas tirnagulos debemos cabiar el 3 por el numero de vertices
+			glDrawArrays(GL_TRIANGLES, 0, 3);
+		}
+		else {
+			glBindVertexArray(VAO2);
+			glDrawArrays(GL_TRIANGLES, 0, 3);
+		}
 		glBindVertexArray(0);
-
 		glfwSwapBuffers(window);
 	}
 }
