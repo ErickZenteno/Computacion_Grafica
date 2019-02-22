@@ -350,6 +350,13 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 
 	};
 
+	Vertex vertices2[] =
+	{
+		{ { 0.0f, 0.0f, 0.0f } ,{ 1.0f, 0.0f, 0.0f } },
+		{ { 1.0f, 0.0f, 0.0f } ,{ 1.0f, 0.0f, 0.0f } },
+		{ { 1.0f, 1.0f, 0.0f } ,{ 1.0f, 0.0f, 0.0f } }
+	};
+
 	const size_t bufferSize = sizeof(vertices);
 	const size_t vertexSize = sizeof(vertices[0]);
 	const size_t rgbOffset = sizeof(vertices[0].XYZ);
@@ -444,10 +451,17 @@ void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mode
 		case GLFW_KEY_ESCAPE:
 			exitApp = true;
 			break;
+<<<<<<< HEAD
 		case GLFW_KEY_E:
 			render1 = true;
 			break;
 		case GLFW_KEY_C:
+=======
+		case GLFW_KEY_F:
+			render1 = true;
+			break;
+		case GLFW_KEY_S:
+>>>>>>> a75ac869e3e4c1516ece79dce49f1185b864568d
 			render1 = false;
 			break;
 		}
@@ -496,11 +510,20 @@ void applicationLoop() {
 		glUseProgram(shaderProgram);
 		if(render1) {
 			glBindVertexArray(VAO);
+<<<<<<< HEAD
 			glDrawArrays(GL_TRIANGLES, 0, 48);
 		}
 		else {
 			glBindVertexArray(VAO2);
 			glDrawArrays(GL_TRIANGLES, 0, 105);
+=======
+			//si queremos manejar mas tirnagulos debemos cabiar el 3 por el numero de vertices
+			glDrawArrays(GL_TRIANGLES, 0, 3);
+		}
+		else {
+			glBindVertexArray(VAO2);
+			glDrawArrays(GL_TRIANGLES, 0, 3);
+>>>>>>> a75ac869e3e4c1516ece79dce49f1185b864568d
 		}
 		glBindVertexArray(0);
 		glfwSwapBuffers(window);
