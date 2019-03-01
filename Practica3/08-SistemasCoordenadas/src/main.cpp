@@ -20,6 +20,10 @@
 
 Shader shader;
 
+int  OpRender = 1;
+float movZ = -7.0f;
+
+
 GLuint VBO, VAO, EBO;
 struct Vertex {
 	glm::vec3 m_Pos;
@@ -95,6 +99,8 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 		exit(-1);
 	}
 
+	//define la zona de dibujo que seamos utilizar
+	//parametros: inicial en x, inicial en y, ancho y alto en la zona de dibujo
 	glViewport(0, 0, screenWidth, screenHeight);
 	glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
 
@@ -189,6 +195,21 @@ void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mode
 		case GLFW_KEY_ESCAPE:
 			exitApp = true;
 			break;
+		case GLFW_KEY_F:
+			OpRender= 1;
+			break;
+		case GLFW_KEY_P:
+			OpRender = 2;
+			break;
+		case GLFW_KEY_O:
+			OpRender = 3;
+			break;
+		case GLFW_KEY_UP:
+			movZ += 1.2f;//LEJOS 
+			break;
+		case GLFW_KEY_DOWN:
+			movZ -= 1.2f;//CERCA
+			break;
 		}
 	}
 }
@@ -250,7 +271,25 @@ void applicationLoop() {
 		GLint viewLoc = shader.getUniformLocation("view");
 		GLint projLoc = shader.getUniformLocation("projection");
 
-		glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -7.0f));
+		glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, movZ));
+		if (OpRender == 1) {
+			std::cout << "frustum" << std::endl;
+			glm::mat4 projection = glm::frustum(-0.02, 0.02, -0.02, 0.02, 0.01, 100.0);
+			glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
+			glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
+		}
+		else if (OpRender == 2) {
+			std::cout << "perspective" << std::endl;
+			glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)(screenWidth / screenHeight), 0.01f, 100.0f);
+			glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
+			glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
+		}
+		else if (OpRender == 3) {
+			std::cout << "ortho" << std::endl;
+			glm::mat4 projection = glm::ortho(-4.0, 4.0, -4.0, 4.0, 0.01, 100.0);
+			glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
+			glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
+		}
 		//glm::mat4 projection = glm::perspective(glm::radians(45.0f), 
 			//(float)screenWidth / (float)screenHeight, 0.1f, 100.0f);
 		//glm::mat4 crea una matriz de 4x4
@@ -264,9 +303,9 @@ void applicationLoop() {
 		//glm::mat4 projection = glm::frustum(-0.02, 0.02, -0.02, 0.02, 0.01, 100.0);
 		//glm::perspective crea una proyeccion perspectiva que cambia respecto a las dimensiones
 		//de la ventan
-		glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)(screenWidth/screenHeight), 0.01f, 100.0f);
-		glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
-		glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
+		//glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)(screenWidth/screenHeight), 0.01f, 100.0f);
+		//glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
+		//glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
 
 		glBindVertexArray(VAO);
 		for (GLuint i = 0; i < 10; i++) {

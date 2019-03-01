@@ -207,20 +207,48 @@ void creaEstrella() {
 	Vertex vertices[] =
 	{
 		//centro estrella
-		{ {0.0f, 0.0f, 0.0f}, { 1.0f, 1.0f, 1.0f} },
+		{ {0.0f, 0.0f, 0.0f}, { 1.0f, 1.0f, 1.0f} },//0
 		//parte de arriba
-		{ { -0.2f, 0.8f, 0.0f } , { 0.0f, 1.0f, 0.0f } },
-		{ { 0.2f , 0.8f, 0.0f } , { 0.0f, 0.0f, 1.0f } },
-		{ { 0.0f , 0.8f , 0.0f } , { 0.0f, 1.0f, 1.0f } },
-		{ { 0.0f , 1.0f , 0.0f } , { 1.0f, 0.0f, 1.0f } },
+		{ { -0.2f, 0.8f, 0.0f } , { 1.0f, 0.0f, 1.0f } },//1
+		{ { 0.2f , 0.8f, 0.0f } , { 1.0f, 0.0f, 1.0f } },//2
+		{ { 0.0f , 0.8f , 0.0f } , { 0.0f, 1.0f, 1.0f } },//3
+		{ { 0.0f , 1.0f , 0.0f } , { 1.0f, 0.0f, 1.0f } },//4
+		//parte de abajo
+		{ { -0.2f, -0.8f, 0.0f } , { 1.0f, 0.0f, 1.0f } },//5
+		{ { 0.2f , -0.8f, 0.0f } , { 1.0f, 0.0f, 1.0f } },//6
+		{ { 0.0f , -0.8f , 0.0f } , { 0.0f, 1.0f, 1.0f } },//7
+		{ { 0.0f , -1.0f , 0.0f } , { 1.0f, 0.0f, 1.0f } },//8
+		//parte izquierda
+		{ { -0.8f, -0.2f, 0.0f } , { 1.0f, 0.0f, 1.0f } },//9
+		{ { -0.8f , 0.2f, 0.0f } , { 1.0f, 0.0f, 1.0f } },//10
+		{ { -0.8f , 0.0f , 0.0f } , { 0.0f, 1.0f, 1.0f } },//11
+		{ { -1.0f , 0.0f , 0.0f } , { 1.0f, 0.0f, 1.0f } },//12
+		//parte derecha
+		{ { 0.8f, -0.2f, 0.0f } , { 1.0f, 0.0f, 1.0f } },//13
+		{ { 0.8f , 0.2f, 0.0f } , { 1.0f, 0.0f, 1.0f } },//14
+		{ { 0.8f , 0.0f , 0.0f } , { 0.0f, 1.0f, 1.0f } },//15
+		{ { 1.0f , 0.0f , 0.0f } , { 1.0f, 0.0f, 1.0f } },//16
+
 	};
 
 	GLuint indices[] = {
 		//parte de arriba
-		0 , 3, 1,
-		0 , 2, 3,
-		3 , 4, 1,
-		3, 2, 4
+		0, 3, 1,
+		0, 2, 3,
+		3, 4, 1,
+		3, 2, 4,
+		0, 7, 5,
+		0, 6, 7,
+		7, 8, 5,
+		7, 6, 8,
+		0, 10, 11,
+		0, 9, 11,
+		11, 9, 12,
+		11, 12, 10,
+		0, 14, 15,
+		0, 13, 15,
+		15, 13, 16,
+		15, 16, 14
 	};
 
 	const size_t VertexSize = sizeof(vertices);
@@ -379,7 +407,7 @@ void applicationLoop() {
 		glBindVertexArray(VAO);
 		// This is for the render with index element
 		//primitiva, num indices, tipo de dato, apuntador a inicio de datos
-		glDrawElements(GL_TRIANGLES, 12, GL_UNSIGNED_INT, 0);
+		glDrawElements(GL_TRIANGLES, 48, GL_UNSIGNED_INT, 0);
 		//esto es para dibujar sin indices
 		//glDrawArrays(GL_TRIANGLES, 0, 4);
 		glBindVertexArray(0);
