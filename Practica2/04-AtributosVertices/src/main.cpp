@@ -223,8 +223,6 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 
 	Vertex vertices2[] =
 	{
-<<<<<<< HEAD
-=======
 		//piso
 		{ { -1.0f, -0.73f, 0.0f } ,{ 0.23f, 0.08f, 0.0f } },
 		{ {  1.0f, -0.73f, 0.0f } ,{ 0.23f, 0.08f, 0.0f } },
@@ -232,7 +230,6 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 		{ {  1.0f, -0.7f, 0.0f } ,{ 0.23f, 0.08f, 0.0f } },
 		{ { -1.0f, -0.7f, 0.0f } ,{ 0.23f, 0.08f, 0.0f } },
 		{ { -1.0f, -0.73f, 0.0f } ,{ 0.23f, 0.08f, 0.0f } },
->>>>>>> bb5b59dc08fa2a95e9ad34f6bb24c1baf293ac99
 		//Cuerpo de la casa
 		{ { -0.5f, -0.7f, 0.0f } ,{ 0.5f, 1.0f, 1.0f } },
 		{ { 0.5f, -0.7f, 0.0f } ,{ 0.5f, 1.0f, 1.0f } },
@@ -254,8 +251,6 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 		{ { -0.1f, 0.0f, 0.0f } ,{ 1.0f, 0.5f, 0.0f } },
 		{ { -0.4f, 0.0f, 0.0f } ,{ 1.0f, 0.5f, 0.0f } },
 		{ { -0.4f, -0.65f, 0.0f } ,{ 1.0f, 0.5f, 0.0f } },
-<<<<<<< HEAD
-=======
 		//Picaporte
 		{ { -0.17f, -0.3f, 0.0f } ,{ 0.23f, 0.08f, 0.0f } },
 		{ { -0.13f, -0.3f, 0.0f } ,{ 0.23f, 0.08f, 0.0f } },
@@ -277,7 +272,6 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 		{ {  0.42f, 0.63f, 0.0f } ,{ 0.6f, 0.0f, 0.0f } },
 		{ {  0.27f, 0.63f, 0.0f } ,{ 0.6f, 0.0f, 0.0f } },
 		{ {  0.27f, 0.3f, 0.0f } ,{ 0.6f, 0.0f, 0.0f } },
->>>>>>> bb5b59dc08fa2a95e9ad34f6bb24c1baf293ac99
 		//Marquesina
 		{ { -0.5f, 0.1f, 0.0f } ,{ 0.1f, 0.1f, 0.0f } },
 		{ {  0.5f, 0.1f, 0.0f } ,{ 0.1f, 0.1f, 0.0f } },
@@ -289,8 +283,6 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 		{ { -0.5f, 0.3f, 0.0f } ,{ 1.0f, 0.5f, 0.0f } },
 		{ {  0.5f, 0.3f, 0.0f } ,{ 1.0f, 0.5f, 0.0f } },
 		{ {  0.0f, 0.7f, 0.0f } ,{ 1.0f, 0.5f, 0.0f } },
-<<<<<<< HEAD
-=======
 		//Marco ventana atico
 		{ { -0.07f, 0.4f, 0.0f } ,{ 1.0f, 1.0f, 1.0f } },
 		{ {  0.07f, 0.4f, 0.0f } ,{ 1.0f, 1.0f, 1.0f } },
@@ -305,7 +297,6 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 		{ {  0.05f, 0.58f, 0.0f } ,{ 0.0f, 0.5f, 1.0f } },
 		{ { -0.05f, 0.58f, 0.0f } ,{ 0.0f, 0.5f, 1.0f } },
 		{ { -0.05f, 0.42f, 0.0f } ,{ 0.0f, 0.5f, 1.0f } },
->>>>>>> bb5b59dc08fa2a95e9ad34f6bb24c1baf293ac99
 		//Techo izquierdo
 		{ { -0.6f, 0.25f, 0.0f } ,{ 1.0f, 0.0f, 0.0f } },
 		{ { -0.55f, 0.25f, 0.0f } ,{ 1.0f, 0.0f, 0.0f } },
@@ -344,15 +335,12 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 		//Barrote vertical
 		{ {  0.215f, -0.38f, 0.0f } ,{ 1.0f, 1.5f, 0.0f } },
 		{ {  0.235f, -0.38f, 0.0f } ,{ 1.0f, 1.5f, 0.0f } },
-<<<<<<< HEAD
 		{ {  0.235f, -0.02f, 0.0f } ,{ 1.0f, 1.5f, 0.0f } },
 		{ {  0.235f, -0.02f, 0.0f } ,{ 1.0f, 1.5f, 0.0f } },
 		{ {  0.215f, -0.02f, 0.0f } ,{ 1.0f, 1.5f, 0.0f } },
-=======
 		{ {  0.235f, -0.12f, 0.0f } ,{ 1.0f, 1.5f, 0.0f } },
 		{ {  0.235f, -0.12f, 0.0f } ,{ 1.0f, 1.5f, 0.0f } },
 		{ {  0.215f, -0.12f, 0.0f } ,{ 1.0f, 1.5f, 0.0f } },
->>>>>>> bb5b59dc08fa2a95e9ad34f6bb24c1baf293ac99
 		{ {  0.215f, -0.38f, 0.0f } ,{ 1.0f, 1.5f, 0.0f } },
 		//Barra ventana
 		{ {  0.45f, -0.5f, 0.0f } ,{ 0.0f, 0.1f, 0.3f } },
@@ -362,9 +350,6 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 		{ {  0.45f, -0.4f, 0.0f } ,{ 0.0f, 0.1f, 0.3f } },
 		{ {  0.45f, -0.5f, 0.0f } ,{ 0.0f, 0.1f, 0.3f } },
 
-<<<<<<< HEAD
-=======
-
 	};
 
 	Vertex vertices2[] =
@@ -372,7 +357,6 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 		{ { 0.0f, 0.0f, 0.0f } ,{ 1.0f, 0.0f, 0.0f } },
 		{ { 1.0f, 0.0f, 0.0f } ,{ 1.0f, 0.0f, 0.0f } },
 		{ { 1.0f, 1.0f, 0.0f } ,{ 1.0f, 0.0f, 0.0f } }
->>>>>>> bb5b59dc08fa2a95e9ad34f6bb24c1baf293ac99
 	};
 
 	const size_t bufferSize = sizeof(vertices);
@@ -469,23 +453,10 @@ void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mode
 		case GLFW_KEY_ESCAPE:
 			exitApp = true;
 			break;
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> bb5b59dc08fa2a95e9ad34f6bb24c1baf293ac99
 		case GLFW_KEY_E:
 			render1 = true;
 			break;
 		case GLFW_KEY_C:
-<<<<<<< HEAD
-=======
-=======
-		case GLFW_KEY_F:
-			render1 = true;
-			break;
-		case GLFW_KEY_S:
->>>>>>> a75ac869e3e4c1516ece79dce49f1185b864568d
->>>>>>> bb5b59dc08fa2a95e9ad34f6bb24c1baf293ac99
 			render1 = false;
 			break;
 		}
