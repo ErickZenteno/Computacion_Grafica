@@ -28,29 +28,67 @@ struct Vertex {
 // This is for the render with index element
 Vertex vertices[] =
 {
-	{ glm::vec3(-0.5f, -0.5f, 0.5f) , glm::vec3(1.0f, 0.0f, 0.0f) },
-	{ glm::vec3(0.5f , -0.5f, 0.5f) , glm::vec3(1.0f, 0.0f, 0.0f) },
-	{ glm::vec3(0.5f ,  0.5f, 0.5f) , glm::vec3(1.0f, 0.0f, 0.0f) },
-	{ glm::vec3(-0.5f,  0.5f, 0.5f) , glm::vec3(1.0f, 0.0f, 0.0f) },
-	{ glm::vec3(0.5f , -0.5f, -0.5f), glm::vec3(1.0f, 0.0f, 1.0f) },
-	{ glm::vec3(0.5f ,  0.5f, -0.5f), glm::vec3(1.0f, 0.0f, 1.0f) },
-	{ glm::vec3(-0.5f , 0.5f, -0.5f) ,glm::vec3(0.0f, 0.0f, 1.0f) },
-	{ glm::vec3(-0.5f , -0.5f, -0.5f),glm::vec3(0.0f, 1.0f, 0.0f) },
+		{ glm::vec3(-0.5f, -0.5f, 0.5f) , glm::vec3(1.0f, 0.0f,0.0f) },//Front 0
+		{ glm::vec3(0.5f, -0.5f, 0.5f) , glm::vec3(1.0f, 0.0f,0.0f) },//1
+		{ glm::vec3(0.5f,  0.5f, 0.5f) , glm::vec3(1.0f, 0.0f,0.0f) },//2
+		//{ glm::vec3(0.5f,  0.5f, 0.5f) , glm::vec3(1.0f, 0.0f,0.0f) },//3
+		{ glm::vec3(-0.5f,  0.5f, 0.5f) , glm::vec3(1.0f, 0.0f,0.0f) },//4
+		//{ glm::vec3(-0.5f, -0.5f, 0.5f) , glm::vec3(1.0f, 0.0f,0.0f) },//5
+
+		{ glm::vec3(-0.5f, -0.5f,-0.5f) , glm::vec3(0.0f, 1.0f,0.0f) },//Back 6
+		{ glm::vec3(0.5f, -0.5f,-0.5f) , glm::vec3(0.0f, 1.0f,0.0f) },//7
+		{ glm::vec3(0.5f,  0.5f,-0.5f) , glm::vec3(0.0f, 1.0f,0.0f) },//8
+		//{ glm::vec3(0.5f,  0.5f,-0.5f) , glm::vec3(0.0f, 1.0f,0.0f) },//9
+		{ glm::vec3(-0.5f,  0.5f,-0.5f) , glm::vec3(0.0f, 1.0f,0.0f) },//10
+		//{ glm::vec3(-0.5f, -0.5f,-0.5f) , glm::vec3(0.0f, 1.0f,0.0f) },//11
+
+		{ glm::vec3(0.5f, -0.5f,  0.5f) , glm::vec3(0.0f, 0.0f,1.0f) },//12
+		{ glm::vec3(0.5f, -0.5f, -0.5f) , glm::vec3(0.0f, 0.0f,1.0f) },//13
+		{ glm::vec3(0.5f,  0.5f, -0.5f) , glm::vec3(0.0f, 0.0f,1.0f) },//14
+		//{ glm::vec3(0.5f,  0.5f, -0.5f) , glm::vec3(0.0f, 0.0f,1.0f) },//15
+		{ glm::vec3(0.5f,  0.5f,  0.5f) , glm::vec3(0.0f, 0.0f,1.0f) },//16
+		//{ glm::vec3(0.5f,  -0.5f, 0.5f) , glm::vec3(0.0f, 0.0f,1.0f) },//17
+		
+		{ glm::vec3(-0.5f,  0.5f,  0.5f) , glm::vec3(1.0f, 1.0f,0.0f) },//18
+		{ glm::vec3(-0.5f,  0.5f, -0.5f) , glm::vec3(1.0f, 1.0f,0.0f) },//19
+		{ glm::vec3(-0.5f, -0.5f, -0.5f) , glm::vec3(1.0f, 1.0f,0.0f) },//20
+		//{ glm::vec3(-0.5f, -0.5f, -0.5f) , glm::vec3(1.0f, 1.0f,0.0f) },//21
+		{ glm::vec3(-0.5f, -0.5f,  0.5f) , glm::vec3(1.0f, 1.0f,0.0f) },//22
+		//{ glm::vec3(-0.5f,  0.5f,  0.5f) , glm::vec3(1.0f, 1.0f,0.0f) },//23
+
+		{ glm::vec3(-0.5f, -0.5f, -0.5f) , glm::vec3(0.0f, 1.0f,1.0f) },//24
+		{ glm::vec3(0.5f, -0.5f, -0.5f) , glm::vec3(0.0f, 1.0f,1.0f) },//25
+		{ glm::vec3(0.5f, -0.5f,  0.5f) , glm::vec3(0.0f, 1.0f,1.0f) },//26
+		//{ glm::vec3(0.5f, -0.5f,  0.5f) , glm::vec3(0.0f, 1.0f,1.0f) },//27
+		{ glm::vec3(-0.5f, -0.5f,  0.5f) , glm::vec3(0.0f, 1.0f,1.0f) },//28
+		//{ glm::vec3(-0.5f, -0.5f, -0.5f) , glm::vec3(0.0f, 1.0f,1.0f) },//29
+
+		{ glm::vec3(-0.5f,  0.5f, -0.5f) , glm::vec3(1.0f, 0.2f,0.5f) },//30
+		{ glm::vec3(0.5f,  0.5f, -0.5f) , glm::vec3(1.0f, 0.2f,0.5f) },//31
+		{ glm::vec3(0.5f,  0.5f,  0.5f) , glm::vec3(1.0f, 0.2f,0.5f) },//32
+		//{ glm::vec3(0.5f,  0.5f,  0.5f) , glm::vec3(1.0f, 0.2f,0.5f) },//33
+		{ glm::vec3(-0.5f,  0.5f,  0.5f) , glm::vec3(1.0f, 0.2f,0.5f) },//34
+		//{ glm::vec3(-0.5f,  0.5f, -0.5f) , glm::vec3(1.0f, 0.2f,0.5f) },//35
 };
 
 GLuint indices[] = {  // Note that we start from 0!
 	0, 1, 2,
-	0, 2, 3,
-	1, 4, 5,
-	1, 5, 2,
-	0, 3, 6,
-	0, 6, 7,
-	0, 4, 1,
-	0, 7, 4,
-	3, 2, 5,
-	3, 5, 6,
+	2, 3, 0,
+
 	4, 5, 6,
-	4, 6, 7
+	6, 7, 4,
+
+	8, 9, 10,
+	10, 11, 8,
+
+	12, 13, 14,
+	14, 15, 12,
+
+	16, 17, 18,
+	18, 19, 16,
+
+	20, 21, 22,
+	22, 23, 20
 };
 
 Shader shader;
@@ -234,12 +272,24 @@ void applicationLoop() {
 	double lastTime = TimeManager::Instance().GetTime();
 
 
-	glm::vec3 cubePositions[] = { 
-		glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(-2.0f, -5.0f, -15.0f),
-		glm::vec3(-1.5f, 2.2f, -2.5f), glm::vec3(1.8f, 1.0f, -12.3f),
-		glm::vec3(4.4f, -0.4f, -3.5f), glm::vec3(-6.7f, 3.0f, -7.5f),
-		glm::vec3(-4.3f, -3.0f, -2.5f), glm::vec3(3.5f, 8.0f, -2.5f),
-		glm::vec3(-1.7f, -0.7f, -1.5f), glm::vec3(3.3f, 3.0f, -1.5f)
+	glm::vec3 cubePositions[] = {
+		glm::vec3(0.0f,  0.0f, -5.0f),
+		glm::vec3(0.0f,  1.125f, -5.0f),
+		glm::vec3(0.0f, 1.875f, -5.0f),
+		glm::vec3(0.0f, -1.25f, -5.0f),
+		glm::vec3(-0.5625f, -2.5f, -5.0f),
+		//5-9
+		glm::vec3(0.5625f, -2.5f, -5.0f),
+		glm::vec3(0.875f, -3.25f, -5.0f),
+		glm::vec3(-0.875f, -3.25f, -5.0f),
+		glm::vec3(1.5f,  0.875f, -5.0f),
+		glm::vec3(-1.5f,  0.875f, -5.0f),
+		//10-13
+		glm::vec3(1.75f, -0.1875f, -5.0f),
+		glm::vec3(-1.75f, -0.1875f, -5.0f),
+		glm::vec3(3.0f,  -1.3125f, -5.0f),
+		glm::vec3(2.5f,  -1.2f, -3.75f),
+
 	};
 
 	while (psi) {
@@ -253,6 +303,7 @@ void applicationLoop() {
 		GLuint modelLoc = shader.getUniformLocation("model");
 		GLuint viewLoc = shader.getUniformLocation("view");
 		GLuint projLoc = shader.getUniformLocation("projection");
+		GLuint locModel = shader.getUniformLocation("model");
 
 		glm::mat4 projection = glm::perspective(glm::radians(45.0f),
 			(float)screenWidth / screenWidth, 0.01f, 100.0f);
@@ -262,19 +313,127 @@ void applicationLoop() {
 
 		glBindVertexArray(VAO);
 		float scale = 1.0;
-		for (int i = 0; i < 10; i++) {
+		
 			// se lee de abajo hacia arriba, primero rotacion y luego la transalacion
-			glm::mat4 model = glm::translate(glm::mat4(1.0f), cubePositions[i]);
-			model = glm::rotate(model, (float)i / 3.1416f, glm::vec3(1.0f, 0.0f, 0.0f));
-			model = glm::scale(model, glm::vec3(scale, scale, scale));
-			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+			//glm::mat4 model = glm::translate(glm::mat4(1.0f), glm::vec3(-2.8, 3.0, -4.0));
 			// This is for the render with index element
-			glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, (GLuint *)0);
-			scale += 0.1;
+			//glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, (GLuint *)0);
 
+
+			glm::mat4 model = glm::mat4(1.0f);
+			glUniformMatrix4fv(locModel, 1, GL_FALSE, glm::value_ptr(model));
+			model = glm::translate(model, cubePositions[0]);		//trasladando 0,0,-4
+			model = glm::scale(model, glm::vec3(2.0f, 2.0f, 1.0f)); //escalando dos unidades
+			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+			glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, (GLuint *)0);
+
+			model = glm::mat4(1.0f);
+			model = glm::translate(model, cubePositions[1]);		//trasladando 0,0,-4
+			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0, 0.0f));
+			model = glm::scale(model, glm::vec3(1.0f, 0.25f, 1.0f)); //escalando dos unidades
+			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+			glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, (GLuint *)0);
+
+			model = glm::mat4(1.0f);
+			model = glm::translate(model, cubePositions[2]);		//trasladando 0,0,-4
+			model = glm::scale(model, glm::vec3(1.25f, 1.25f, 1.25f)); //escalando dos unidades
+			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+			glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, (GLuint *)0);
+
+			model = glm::mat4(1.0f);
+			model = glm::translate(model, cubePositions[3]);		//trasladando 0,0,-4
+			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0, 0.0f));
+			model = glm::scale(model, glm::vec3(2.0f, 0.5f, 1.0f)); //escalando dos unidades
+			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+			glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, (GLuint *)0);
+
+			//piernas
+			model = glm::mat4(1.0f);
+			model = glm::translate(model, cubePositions[4]);		//trasladando 0,0,-4
+			model = glm::scale(model, glm::vec3(0.875f, 2.0f, 1.0f)); //escalando dos unidades
+			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+			glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, (GLuint *)0);
+
+			model = glm::mat4(1.0f);
+			model = glm::translate(model, cubePositions[5]);		//trasladando 0,0,-4
+			model = glm::scale(model, glm::vec3(0.875f, 2.0f, 1.0f)); //escalando dos unidades
+			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+			glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, (GLuint *)0);
+
+			//pies
+			model = glm::mat4(1.0f);
+			model = glm::translate(model, cubePositions[6]);		//trasladando 0,0,-4
+			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0, 0.0f));
+			model = glm::scale(model, glm::vec3(1.5f, 0.5f, 1.0f)); //escalando dos unidades
+			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+			glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, (GLuint *)0);
+
+			model = glm::mat4(1.0f);
+			model = glm::translate(model, cubePositions[7]);		//trasladando 0,0,-4
+			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0, 0.0f));
+			model = glm::scale(model, glm::vec3(1.5f, 0.5f, 1.0f)); //escalando dos unidades
+			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+			glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, (GLuint *)0);
+
+			//brazos
+			model = glm::mat4(1.0f);
+			model = glm::translate(model, cubePositions[8]);		//trasladando 0,0,-4
+			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0, 0.0f));
+			model = glm::scale(model, glm::vec3(1.0f, 0.25f, 1.0f)); //escalando dos unidades
+			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+			glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, (GLuint *)0);
+
+			model = glm::mat4(1.0f);
+			model = glm::translate(model, cubePositions[9]);		//trasladando 0,0,-4
+			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0, 0.0f));
+			model = glm::scale(model, glm::vec3(1.0f, 0.25f, 1.0f)); //escalando dos unidades
+			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+			glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, (GLuint *)0);
+
+			model = glm::mat4(1.0f);
+			model = glm::translate(model, cubePositions[10]);		//trasladando 0,0,-4
+			model = glm::scale(model, glm::vec3(0.5f, 1.875f, 1.0f)); //escalando dos unidades
+			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+			glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, (GLuint *)0);
+
+			model = glm::mat4(1.0f);
+			model = glm::translate(model, cubePositions[11]);		//trasladando 0,0,-4
+			model = glm::scale(model, glm::vec3(0.5f, 1.875f, 1.0f)); //escalando dos unidades
+			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+			glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, (GLuint *)0);
+
+			//espada
+			model = glm::mat4(1.0f);
+			model = glm::translate(model, cubePositions[12]);		//trasladando 0,0,-4
+			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0, 0.0f));
+			model = glm::scale(model, glm::vec3(3.0f, 0.25f, 0.5f)); //escalando dos unidades
+			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+			glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, (GLuint *)0);
+
+			model = glm::mat4(1.0f);
+			model = glm::translate(model, cubePositions[13]);		//trasladando 0,0,-4
+			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0, 0.0f));
+			model = glm::scale(model, glm::vec3(0.25f, 1.0f, 0.25f)); //escalando dos unidades
+			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+			glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, (GLuint *)0);
+
+
+			model = glm::mat4(1.0f);
+			model = glm::translate(model, cubePositions[1]);
+			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+			glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, (GLuint *)0);
+
+
+			model = glm::mat4(1.0f);
+			model = glm::translate(model, cubePositions[2]);
+			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+			glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, (GLuint *)0);
 
 		
-		}
+
+		
+		
+	
 		glBindVertexArray(0);
 		
 
