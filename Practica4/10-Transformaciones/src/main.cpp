@@ -271,24 +271,36 @@ void applicationLoop() {
 	bool psi = true;
 	double lastTime = TimeManager::Instance().GetTime();
 
-
 	glm::vec3 cubePositions[] = {
-		glm::vec3(0.0f,  0.0f, -5.0f),
-		glm::vec3(0.0f,  1.125f, -5.0f),
-		glm::vec3(0.0f, 1.875f, -5.0f),
-		glm::vec3(0.0f, -1.25f, -5.0f),
-		glm::vec3(-0.5625f, -2.5f, -5.0f),
+		glm::vec3(0.0 - 3.0f,  0.0f, -5.0f),//0
+		glm::vec3(0.0 - 3.0f,  1.125f, -5.0f),//1
+		glm::vec3(0.0 - 3.0f, 1.875f, -5.0f),//2
+		glm::vec3(0.0 - 3.0f, -1.25f, -5.0f),//3
+		glm::vec3(-0.5625 - 3.0f, -2.5f, -5.0f),//4
 		//5-9
-		glm::vec3(0.5625f, -2.5f, -5.0f),
-		glm::vec3(0.875f, -3.25f, -5.0f),
-		glm::vec3(-0.875f, -3.25f, -5.0f),
-		glm::vec3(1.5f,  0.875f, -5.0f),
-		glm::vec3(-1.5f,  0.875f, -5.0f),
+		glm::vec3(0.5625 - 3.0f, -2.5f, -5.0f),//5
+		glm::vec3(0.875 - 3.0f, -3.25f, -5.0f),//6
+		glm::vec3(-0.875 - 3.0f, -3.25f, -5.0f),//7
+		glm::vec3(1.5 - 3.0f,  0.875f, -5.0f),//8
+		glm::vec3(-1.5 - 3.0f,  0.875f, -5.0f),//9
 		//10-13
-		glm::vec3(1.75f, -0.1875f, -5.0f),
-		glm::vec3(-1.75f, -0.1875f, -5.0f),
-		glm::vec3(3.0f,  -1.3125f, -5.0f),
-		glm::vec3(2.5f,  -1.2f, -3.75f),
+		glm::vec3(1.75 - 3.0f, -0.1875f, -5.0f),//10
+		glm::vec3(-1.75 - 3.0f, -0.1875f, -5.0f),//11
+		glm::vec3(3.0 - 3.0f,  -1.3125f, -5.0f),//12
+		glm::vec3(2.5 - 3.0f,  -1.2f, -3.75f),//13
+
+		glm::vec3(3.0f,  0.0f, -3.75f),//14
+		glm::vec3(4.0f,  0.0f, -3.75f),//15
+		glm::vec3(2.5f,  0.5f, -3.75f),//16
+		glm::vec3(2.0f,  0.5f, -3.75f),//17
+		glm::vec3(2.65f,  0.85f, -3.75f),//18
+		glm::vec3(2.4f,  -0.5f, -3.75f),//19
+		glm::vec3(3.4f,  -0.5f, -3.75f),//20
+
+
+
+
+
 
 	};
 
@@ -426,6 +438,61 @@ void applicationLoop() {
 
 			model = glm::mat4(1.0f);
 			model = glm::translate(model, cubePositions[2]);
+			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+			glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, (GLuint *)0);
+
+
+			//perro
+			//cuerpo
+			model = glm::mat4(1.0f);
+			model = glm::translate(model, cubePositions[14]);		//trasladando 0,0,-4
+			model = glm::scale(model, glm::vec3(1.5f, 0.5f, 0.5f)); //escalando dos unidades
+			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+			glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, (GLuint *)0);
+			
+			// cola
+			model = glm::mat4(1.0f);
+			model = glm::translate(model, cubePositions[15]);		//trasladando 0,0,-4
+			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0, 0.0f));
+			model = glm::scale(model, glm::vec3(0.5f, 0.2f, 0.5f)); //escalando dos unidades
+			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+			glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, (GLuint *)0);
+
+			//cabeza
+			model = glm::mat4(1.0f);
+			model = glm::translate(model, cubePositions[16]);		//trasladando 0,0,-4
+			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0, 0.0f));
+			model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f)); //escalando dos unidades
+			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+			glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, (GLuint *)0);
+
+			//Nariz
+			model = glm::mat4(1.0f);
+			model = glm::translate(model, cubePositions[17]);		//trasladando 0,0,-4
+			model = glm::scale(model, glm::vec3(0.5f, 0.2f, 0.5f)); //escalando dos unidades
+			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+			glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, (GLuint *)0);
+
+			//Oreja
+			model = glm::mat4(1.0f);
+			model = glm::translate(model, cubePositions[18]);		//trasladando 0,0,-4
+			model = glm::scale(model, glm::vec3(0.2f, 0.2f, 0.5f)); //escalando dos unidades
+			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+			glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, (GLuint *)0);
+
+			//pie izquierdo
+			model = glm::mat4(1.0f);
+			model = glm::translate(model, cubePositions[19]);		//trasladando 0,0,-4
+			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0, 0.0f));
+			model = glm::scale(model, glm::vec3(0.3f, 0.5f, 0.5f)); //escalando dos unidades
+			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+			glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, (GLuint *)0);
+
+			//pie derecho
+			model = glm::mat4(1.0f);
+			model = glm::translate(model, cubePositions[20]);		//trasladando 0,0,-4
+			model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0, 0.0f));
+			model = glm::scale(model, glm::vec3(0.3f, 0.5f, 0.5f)); //escalando dos unidades
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, (GLuint *)0);
 
