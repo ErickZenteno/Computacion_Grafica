@@ -13,7 +13,7 @@ Texture::Texture(const std::string& FileName) {
 }
 
 Texture::Texture(GLenum TextureTarget, const std::string& FileName) :
-		m_textureObj(0), type("") {
+	m_textureObj(0), type("") {
 	this->m_textureTarget = TextureTarget;
 	this->m_fileName = FileName;
 }
@@ -52,10 +52,8 @@ FIBITMAP* Texture::loadImage(bool flip) {
 	}
 	// Si es valida la imagen y puede ser leeido, se carga la imagen en un bitap
 	FIBITMAP* bitmap = FreeImage_Load(format, filename);
-	if (flip) {
-		//se envierte las coordenadas verticales
+	if (flip)
 		FreeImage_FlipVertical(bitmap);
-	}
 
 	// Obtiene el numero de bits por pixel de la imagen
 	int bitsPerPixel = FreeImage_GetBPP(bitmap);
@@ -103,14 +101,14 @@ bool Texture::load() {
 	// Si la imagen no es encontrada termina el programa
 	if (format == -1) {
 		std::cout << "No se encontro la imagen: " << m_fileName
-				<< " - Abortando." << std::endl;
+			<< " - Abortando." << std::endl;
 		exit(-1);
 	}
 	// Si el formato no es soportado por FreeImage termina el programa
 	if (format == FIF_UNKNOWN) {
 		std::cout
-				<< "No se puede determinar el formato de imagen - validarla extension del archivo..."
-				<< std::endl;
+			<< "No se puede determinar el formato de imagen - validarla extension del archivo..."
+			<< std::endl;
 
 		// Se obtiene el formato del archivo
 		format = FreeImage_GetFIFFromFilename(filename);
@@ -118,7 +116,7 @@ bool Texture::load() {
 		// Revisa si la libreria es capaz de leer el formato
 		if (!FreeImage_FIFSupportsReading(format)) {
 			std::cout << "El formato de la imagen no puede ser leeido!"
-					<< std::endl;
+				<< std::endl;
 			exit(-1);
 		}
 	}
@@ -135,7 +133,8 @@ bool Texture::load() {
 		/*std::cout << "Source image has " << bitsPerPixel
 		 << " bits per pixel. Skipping conversion." << std::endl;*/
 		bitmap32 = bitmap;
-	} else {
+	}
+	else {
 		/*std::cout << "Source image has " << bitsPerPixel
 		 << " bits per pixel. Converting to 32-bit colour." << std::endl;*/
 		bitmap32 = FreeImage_ConvertTo32Bits(bitmap);
@@ -146,7 +145,7 @@ bool Texture::load() {
 	/*std::cout << "Image: " << m_fileName << " is size: " << imageWidth << "x"
 	 << imageHeight << "." << std::endl;*/
 
-	// Se obtiene un apuntador a los datos de la textura como un arreglo de unsigned bytes.
+	 // Se obtiene un apuntador a los datos de la textura como un arreglo de unsigned bytes.
 	GLubyte* textureData = FreeImage_GetBits(bitmap32);
 
 	// Se genera un buffer para textura en la GPU
@@ -155,15 +154,15 @@ bool Texture::load() {
 
 	// Se envian los datos de la textura
 	glTexImage2D(GL_TEXTURE_2D, // Tipo de textura
-			0, // Niveles del Mipmap
-			GL_RGBA, //Formato intero, RGBA
-			imageWidth, // Ancho de la textura
-			imageHeight, // Ancho de la textura
-			0, // Borde de la textura
-			GL_BGRA, // Formato que se maneja la textura
-			GL_UNSIGNED_BYTE, // Tipo de datos de la textura
-			textureData); // Imagen que se usa para esta textura
-	// Se indica el tipo de interpolacion para ajustar la imagen que se cargo a la GPU
+		0, // Niveles del Mipmap
+		GL_RGBA, //Formato intero, RGBA
+		imageWidth, // Ancho de la textura
+		imageHeight, // Ancho de la textura
+		0, // Borde de la textura
+		GL_BGRA, // Formato que se maneja la textura
+		GL_UNSIGNED_BYTE, // Tipo de datos de la textura
+		textureData); // Imagen que se usa para esta textura
+// Se indica el tipo de interpolacion para ajustar la imagen que se cargo a la GPU
 	glTexParameterf(m_textureTarget, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameterf(m_textureTarget, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 

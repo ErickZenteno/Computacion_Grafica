@@ -37,7 +37,7 @@ Shader shader;
 //Descomentar
 Shader shaderTexture;
 
-GLuint textureID1, textureID2;
+GLuint textureID1, textureID2, textureID3, textureID4, textureID5;
 
 int screenWidth;
 int screenHeight;
@@ -165,21 +165,22 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 		//le indica a openGL que se encargue de general los mipmaps
 		glGenerateMipmap(GL_TEXTURE_2D);
 	}
-	else
+	else {
 		std::cout << "Failed to load texture" << std::endl;
+	}
 	texture1.freeImage(bitmap);
 
 
 	//segunda estructura 
 	Texture texture2("../../Textures/goku.png");
 	FIBITMAP* bitmap2 = texture2.loadImage();
-	unsigned char * data2 = texture2.convertToData(bitmap, imageWidth, imageHeight);
+	unsigned char * data2 = texture2.convertToData(bitmap2, imageWidth, imageHeight);
 	glGenTextures(1, &textureID2);
 	//se enlaza el tipo de textura al ID textureID (Texture 2D)
 	glBindTexture(GL_TEXTURE_2D, textureID2);
 	// set the texture wrapping parameters
 	//repetir en eje S y eje T (en este caso el X y Y)
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);	// set texture wrapping to GL_REPEAT (default wrapping method)
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// set texture wrapping to GL_REPEAT (default wrapping method)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 	// set texture filtering parameters
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -191,9 +192,90 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 		//le indica a openGL que se encargue de general los mipmaps
 		glGenerateMipmap(GL_TEXTURE_2D);
 	}
-	else
+	else{
 		std::cout << "Failed to load texture" << std::endl;
-	texture1.freeImage(bitmap2);
+	}
+	texture2.freeImage(bitmap2);
+
+
+	Texture texture3("../../Textures/coca.PNG");
+	FIBITMAP* bitmap3 = texture3.loadImage();
+	unsigned char * data3 = texture3.convertToData(bitmap3, imageWidth, imageHeight);
+	glGenTextures(1, &textureID3);
+	//se enlaza el tipo de textura al ID textureID (Texture 2D)
+	glBindTexture(GL_TEXTURE_2D, textureID3);
+	// set the texture wrapping parameters
+	//repetir en eje S y eje T (en este caso el X y Y)
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);	// set texture wrapping to GL_REPEAT (default wrapping method)
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	// set texture filtering parameters
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+	if (data3) {
+		//TipoTextura,0(MIPMAPS),Formato interno del buffer, ancho, alto, borde, formato de la libreria, tipo de dato, datos de la imagen
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imageWidth, imageHeight, 0, GL_BGRA, GL_UNSIGNED_BYTE, data3);
+		//le indica a openGL que se encargue de general los mipmaps
+		glGenerateMipmap(GL_TEXTURE_2D);
+	}
+	else {
+		std::cout << "Failed to load texture" << std::endl;
+	}
+	texture3.freeImage(bitmap3);
+
+
+	Texture texture4("../../Textures/tapaLata.png");
+	FIBITMAP* bitmap4 = texture4.loadImage();
+	unsigned char * data4 = texture4.convertToData(bitmap4, imageWidth, imageHeight);
+	glGenTextures(1, &textureID4);
+	//se enlaza el tipo de textura al ID textureID (Texture 2D)
+	glBindTexture(GL_TEXTURE_2D, textureID4);
+	// set the texture wrapping parameters
+	//repetir en eje S y eje T (en este caso el X y Y)
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);	// set texture wrapping to GL_REPEAT (default wrapping method)
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	// set texture filtering parameters
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+	if (data4) {
+		//TipoTextura,0(MIPMAPS),Formato interno del buffer, ancho, alto, borde, formato de la libreria, tipo de dato, datos de la imagen
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imageWidth, imageHeight, 0, GL_BGRA, GL_UNSIGNED_BYTE, data4);
+		//le indica a openGL que se encargue de general los mipmaps
+		glGenerateMipmap(GL_TEXTURE_2D);
+	}
+	else {
+		std::cout << "Failed to load texture" << std::endl;
+	}
+	texture4.freeImage(bitmap4);
+
+
+
+
+	Texture texture5("../../Textures/fondoLata.PNG");
+	FIBITMAP* bitmap5 = texture5.loadImage();
+	unsigned char * data5 = texture5.convertToData(bitmap5, imageWidth, imageHeight);
+	glGenTextures(1, &textureID5);
+	//se enlaza el tipo de textura al ID textureID (Texture 2D)
+	glBindTexture(GL_TEXTURE_2D, textureID5);
+	// set the texture wrapping parameters
+	//repetir en eje S y eje T (en este caso el X y Y)
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);	// set texture wrapping to GL_REPEAT (default wrapping method)
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	// set texture filtering parameters
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+	if (data5) {
+		//TipoTextura,0(MIPMAPS),Formato interno del buffer, ancho, alto, borde, formato de la libreria, tipo de dato, datos de la imagen
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imageWidth, imageHeight, 0, GL_BGRA, GL_UNSIGNED_BYTE, data5);
+		//le indica a openGL que se encargue de general los mipmaps
+		glGenerateMipmap(GL_TEXTURE_2D);
+	}
+	else {
+		std::cout << "Failed to load texture" << std::endl;
+	}
+	texture5.freeImage(bitmap5);
 
 }
 
@@ -303,16 +385,19 @@ void applicationLoop() {
 		box.setPosition(glm::vec3(2.0, 0.0, -3.0));
 		box.render();
 
+
+		glBindTexture(GL_TEXTURE_2D, textureID3);
 		cylinder.setProjectionMatrix(projection);
 		cylinder.setViewMatrix(view);
 		//cylinder.enableWireMode();
 		cylinder.setPosition(glm::vec3(-2.0, 0.0, -3.0));
 		//contorno lateral del cilindro
 		cylinder.render(0, cylinder.getSlices()* cylinder.getStacks()*2*3);
-		glBindTexture(GL_TEXTURE_2D, textureID1);
+		glBindTexture(GL_TEXTURE_2D, textureID4);
 		//para la tapa super
 		cylinder.render(cylinder.getSlices()* cylinder.getStacks() * 2 * 3, cylinder.getSlices()* 3);
 		//tapa inferior
+		glBindTexture(GL_TEXTURE_2D, textureID5);
 		cylinder.render(cylinder.getSlices()* cylinder.getStacks() * 2 * 3 + cylinder.getSlices() * 3, cylinder.getSlices() * 3);
 
 
