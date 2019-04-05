@@ -127,6 +127,8 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 	box.setColor(glm::vec3(0.2, 0.8, 0.4));
 
 	camera->setPosition(glm::vec3(0.0f, 0.0f, 0.4f));
+	camera->setSensitivity(500.0);
+
 
 	// Descomentar
 	int imageWidth, imageHeight;
@@ -269,6 +271,15 @@ void applicationLoop() {
 		glUniform3f(iluminacionShader.getUniformLocation("light.diffuse"), 0.4, 0.4, 0.4);
 		glUniform3f(iluminacionShader.getUniformLocation("light.specular"), 0.5, 0.3, 0.2);
 		glUniform3fv(iluminacionShader.getUniformLocation("viewPos"), 1, glm::value_ptr(camera->getPosition()));
+
+
+		glUniform3f(iluminacionShader.getUniformLocation("material.ambient"), 0.19225, 0.19225, 0.19225);
+		glUniform3f(iluminacionShader.getUniformLocation("material.diffuse"), 0.50754, 0.50754, 0.50754);
+		glUniform3f(iluminacionShader.getUniformLocation("material.specular"), 0.508273, 0.508273, 0.508273);
+		glUniform1f(iluminacionShader.getUniformLocation("material.shininess"), 51.2);
+
+
+		glUniform3fv(iluminacionShader.getUniformLocation("viewPos"), 1, glm::value_ptr(camera->getPosition()));
 		iluminacionShader.turnOff();
 
 		sphere.setProjectionMatrix(projection);
@@ -281,7 +292,7 @@ void applicationLoop() {
 }
 
 int main(int argc, char ** argv) {
-	init(800, 700, "Window GLFW", false);
+	init(800, 700, "=====Zenteno Vision=====", false);
 	applicationLoop();
 	destroy();
 	return 1;
