@@ -7,7 +7,6 @@ out vec4 color;
 
 struct PositionalLight{
 	vec3 position;
-	
 	vec3 ambient;
 	vec3 diffuse;
 	vec3 specular;
@@ -41,7 +40,7 @@ void main(){
 	vec3 viewDir = normalize(viewPos - fragPos);
 	float spec = pow( max(dot(r , viewDir), 0.0), material.shininess);
 
-	vec3 result = (ambient + diff * light.diffuse*material.diffuse + spec * light.specular*material.specular) * our_color;
+	vec3 result = (ambient + diff * light.diffuse*material.diffuse + spec * light.specular*material.specular);
 
 	color = vec4(result, 1.0);
 
