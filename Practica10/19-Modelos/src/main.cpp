@@ -51,6 +51,9 @@ Model modelRail;
 Model modelAirCraft;
 Model arturito;
 Model modelTrain;
+Model nanoSuit;
+
+
 
 GLuint textureID1, textureID2, textureID3, textureCespedID, textureWaterID, textureCubeTexture;
 GLuint cubeTextureID;
@@ -164,8 +167,10 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 	modelRock.loadModel("../../models/rock/rock.obj");
 	modelRail.loadModel("../../models/railroad/railroad_track.obj");
 	modelAirCraft.loadModel("../../models/Aircraft_obj/E 45 Aircraft_obj.obj");
+	nanoSuit.loadModel("../../models/nanosuit/nanosuit.obj");
 
-	camera->setPosition(glm::vec3(0.0f, 0.0f, 0.4f));
+
+	camera->setPosition(glm::vec3(0.0f, 10.0f, 50.0f));
 	
 	// Textura Ladrillos
 	int imageWidth, imageHeight;
@@ -375,10 +380,12 @@ void applicationLoop() {
 	float angle = 0.0;
 	float ratio = 20.0;
 
-	float aircraftZ = 0.0;
+	float aircraftZ = 0.0, NanoZ=0.0, NanoX=0.0;
 	bool direcionAirCraft = true;
-	float rotationAirCraft = 0.0;
+	float rotationAirCraft = 0.0, rotationNano=0.0;
 	bool finishRotation = true;
+	int  cuartoVuelta = 0, direcionNano = 0;
+
 
 	while (psi) {
 		psi = processInput(true);
@@ -486,14 +493,14 @@ void applicationLoop() {
 		matrixAirCraft = glm::rotate(matrixAirCraft, rotationAirCraft, glm::vec3(0, 1, 0));
 		modelAirCraft.render(matrixAirCraft);
 
-		/*arturito.setShader(&shaderLighting);
-		arturito.setProjectionMatrix(projection);
-		arturito.setViewMatrix(view);
-		arturito.setScale(glm::vec3(1.0, 1.0, 1.0));
-		glm::mat4 matrixArturito = glm::translate(glm::mat4(1.0f), glm::vec3(0.0, 0.0, aircraftZ));
-		matrixArturito = glm::translate(matrixArturito, glm::vec3(-10.0, 2.0, 15.0));
-		matrixArturito = glm::rotate(matrixArturito, rotationAirCraft, glm::vec3(0, 1, 0));
-		arturito.render(matrixArturito);*/
+		nanoSuit.setShader(&shaderLighting);
+		nanoSuit.setProjectionMatrix(projection);
+		nanoSuit.setViewMatrix(view);
+		nanoSuit.setScale(glm::vec3(1.0, 1.0, 1.0));
+		glm::mat4 matrixnanoSuit = glm::translate(glm::mat4(1.0f), glm::vec3(NanoX, 0.0, NanoZ));
+		matrixnanoSuit = glm::translate(matrixnanoSuit, glm::vec3(-10.0, 0.0, 15.0));
+		matrixnanoSuit = glm::rotate(matrixnanoSuit, rotationNano, glm::vec3(0, 1, 0));
+		nanoSuit.render(matrixnanoSuit);
 
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, textureCespedID);
@@ -578,12 +585,74 @@ void applicationLoop() {
 			}
 		}
 
+
+		if (direcionNano == 0 && cuartoVuelta == 0) {
+			NanoZ += 0.01;
+			if (direcionNano == 0 && NanoZ > 6.0) {
+				direcionNano = 1;
+				cuartoVuelta = 1;
+				NanoZ = 6.0;
+			}
+		}
+		if (direcionNano==1 && cuartoVuelta == 1) {
+			rotationNano += 0.01;
+			if (rotationNano > glm::radians(90.0f)) {
+				cuartoVuelta = 2;
+				rotationNano = glm::radians(90.0f);
+			}
+		}
+		if (direcionNano == 1 && cuartoVuelta == 2) {
+			NanoX += 0.01;
+			if (direcionNano == 1 && NanoX > 6.0) {
+				direcionNano = 2;
+				cuartoVuelta = 2;
+				NanoX = 6.0;
+			}
+		}
+		if (direcionNano == 2 && cuartoVuelta == 2) {
+			rotationNano += 0.01;
+			if (rotationNano > glm::radians(180.0f)) {
+				cuartoVuelta = 3;
+				rotationNano = glm::radians(180.0f);
+			}
+		}
+		if (direcionNano == 2 && cuartoVuelta == 3) {
+			NanoZ -= 0.01;
+			if (direcionNano ==2 && NanoZ < -6.0) {
+				direcionNano = 3;
+				cuartoVuelta = 4;
+				NanoZ = -6.0;
+			}
+		}
+		if (direcionNano == 3 && cuartoVuelta == 4) {
+			rotationNano += 0.01;
+			if (rotationNano > glm::radians(270.0f)) {
+				cuartoVuelta = 5;
+				rotationNano = glm::radians(270.0f);
+			}
+		}
+		if (direcionNano == 3 && cuartoVuelta == 5) {
+			NanoX -= 0.01;
+			if (direcionNano == 3 && NanoX < -6.0) {
+				direcionNano = 0;
+				cuartoVuelta = 6;
+				NanoX = -6.0;
+			}
+		}
+		if (direcionNano == 0 && cuartoVuelta == 6) {
+			rotationNano += 0.01;
+			if (rotationNano > glm::radians(360.0f)) {
+				cuartoVuelta = 0;
+				rotationNano = glm::radians(0.0f);
+			}
+		}
+
 		glfwSwapBuffers(window);
 	}
 }
 
 int main(int argc, char ** argv) {
-	init(800, 700, "Window GLFW", false);
+	init(800, 700, "==========Zenteno Vision========", false);
 	applicationLoop();
 	destroy();
 	return 1;

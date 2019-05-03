@@ -42,6 +42,9 @@ int lastMousePosX, offsetx;
 int lastMousePosY, offsety;
 
 float rot1 = 0, rot2 = 0, rot3 = 0;
+float rot4 = 0, rot5 = 0, rot6 = 0;
+float rot7 = 0, rot8 = 0, rot9 = 0;
+
 
 double deltaTime;
 
@@ -206,15 +209,85 @@ bool processInput(bool continueApplication) {
 	}
 	if (glfwGetKey(window, GLFW_KEY_1) == GLFW_PRESS) {
 		if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS) {
-			rot1 = -1*rot1;
+			rot1 -= 0.1;
 		}
-		rot1 += 0.1;
+		else {
+			rot1 += 0.1;
+
+		}
 	}
 	if (glfwGetKey(window, GLFW_KEY_2) == GLFW_PRESS) {
-		rot2 += 0.1;
+		if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS) {
+			rot2 -= 0.1;
+		}
+		else {
+			rot2 += 0.1;
+
+		}
 	}
 	if (glfwGetKey(window, GLFW_KEY_3) == GLFW_PRESS) {
-		rot3 += 0.1;
+		if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS) {
+			rot3 -= 0.1;
+		}
+		else {
+			rot3 += 0.1;
+
+		}
+	}
+	if (glfwGetKey(window, GLFW_KEY_4) == GLFW_PRESS) {
+		if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS) {
+			rot4 -= 0.1;
+		}
+		else {
+			rot4 += 0.1;
+
+		}
+	}
+	if (glfwGetKey(window, GLFW_KEY_5) == GLFW_PRESS) {
+		if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS) {
+			rot5 -= 0.1;
+		}
+		else {
+			rot5 += 0.1;
+
+		}
+	}
+	if (glfwGetKey(window, GLFW_KEY_6) == GLFW_PRESS) {
+		if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS) {
+			rot6 -= 0.1;
+		}
+		else {
+			rot6 += 0.1;
+
+		}
+	}
+
+	if (glfwGetKey(window, GLFW_KEY_7) == GLFW_PRESS) {
+		if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS) {
+			rot7 -= 0.1;
+		}
+		else {
+			rot7 += 0.1;
+
+		}
+	}
+	if (glfwGetKey(window, GLFW_KEY_8) == GLFW_PRESS) {
+		if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS) {
+			rot8 -= 0.1;
+		}
+		else {
+			rot8 += 0.1;
+
+		}
+	}
+	if (glfwGetKey(window, GLFW_KEY_9) == GLFW_PRESS) {
+		if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS) {
+			rot9 -= 0.1;
+		}
+		else {
+			rot9 += 0.1;
+
+		}
 	}
 	offsetx = 0; 
 	offsety = 0;
@@ -249,16 +322,53 @@ void applicationLoop() {
 
 		glm::mat4 matrixs5 = glm::translate(matrix0, glm::vec3(0.0f, 0.5f, 0.0f));
 
+		
+		//brazo derecho
 		glm::mat4 matrixs6 = glm::translate(matrixs5, glm::vec3(0.3f, 0.0f, 0.0f));
 
 		matrixs6 = glm::rotate(matrixs6, rot1, glm::vec3(0.0f, 0.0f, 1.0f));
 		matrixs6 = glm::rotate(matrixs6, rot2, glm::vec3(0.0f, 1.0f, 0.0f));
 		matrixs6 = glm::rotate(matrixs6, rot3, glm::vec3(1.0f, 0.0f, 0.0f));
 
-		glm::mat4 matrix7 = glm::translate(matrixs6, glm::vec3(0.25f, 0.0f, 0.0f));
+		glm::mat4 matrix7 = glm::rotate(matrixs6, -0.5f, glm::vec3(0.0f, 0.0f, 1.0f));
+		glm::mat4 matrixs7 = glm::translate(matrix7, glm::vec3(0.5f, 0.0f, 0.0f));
+
+		matrixs7 = glm::rotate(matrixs7, rot4, glm::vec3(0.0f, 0.0f, 1.0f));
+		matrixs7 = glm::rotate(matrixs7, rot5, glm::vec3(0.0f, 1.0f, 0.0f));
+		matrixs7 = glm::rotate(matrixs7, rot6, glm::vec3(1.0f, 0.0f, 0.0f));
+
+		glm::mat4 matrix8 = glm::rotate(matrixs7, -1.5f, glm::vec3(0.0f, 0.0f, 1.0f));
+		matrix8 = glm::translate(matrix8, glm::vec3(0.25f, 0.0f, 0.0f));
+
+		glm::mat4 matrixs12 = glm::translate(matrix8, glm::vec3(0.3f, 0.0f, 0.0f));
+
+		matrixs12 = glm::rotate(matrixs12, rot7, glm::vec3(0.0f, 0.0f, 1.0f));
+		matrixs12 = glm::rotate(matrixs12, rot8, glm::vec3(0.0f, 1.0f, 0.0f));
+		matrixs12 = glm::rotate(matrixs12, rot9, glm::vec3(1.0f, 0.0f, 0.0f));
 
 
-		glm::mat4 matrixs7 = glm::translate(matrix7, glm::vec3(0.3f, 0.0f, 0.0f));
+		glm::mat4 matrixc1 = glm::translate(matrixs12, glm::vec3(0.1f, 0.0f, 0.0f));
+		matrixc1 = glm::scale(matrixc1, glm::vec3(0.1f, 0.1f, 0.1f));
+		box.setProjectionMatrix(projection);
+		box.setViewMatrix(view);
+		box.enableWireMode();
+		box.setColor(glm::vec3(0.2, 0.8, 0.4));
+		box.render(matrixc1);
+
+		matrixs12 = glm::scale(matrixs12, glm::vec3(0.1f, 0.1f, 0.1f));
+		sphere.setProjectionMatrix(projection);
+		sphere.setViewMatrix(view);
+		sphere.enableWireMode();
+		sphere.render(matrixs12);
+
+		matrix8 = glm::scale(matrix8, glm::vec3(0.5f, 0.15f, 0.15f));
+		cylinder2.setProjectionMatrix(projection);
+		cylinder2.setViewMatrix(view);
+		cylinder2.enableWireMode();
+		cylinder2.setColor(glm::vec3(0.0, 0.8, 0.7));
+		cylinder2.render(matrix8);
+
+
 		matrixs7 = glm::scale(matrixs7, glm::vec3(0.1f, 0.1f, 0.1f));
 		sphere.setProjectionMatrix(projection);
 		sphere.setViewMatrix(view);
@@ -266,34 +376,93 @@ void applicationLoop() {
 		sphere.render(matrixs7);
 
 
-		matrix7 = glm::rotate(matrix7,1.5708f, glm::vec3(0.0f,0.0f,1.0f));
-		matrix7 = glm::scale(matrix7, glm::vec3(0.15, 0.5, 0.15f));
-		cylinder.setProjectionMatrix(projection);
-		cylinder.setViewMatrix(view);
-		cylinder.enableWireMode();
-		cylinder.setColor(glm::vec3(0.8, 0.3, 1.0));
-		cylinder.render(matrix7);
+		matrix7 = glm::translate(matrix7, glm::vec3(0.25f, 0.0f, 0.0f));
+		matrix7 = glm::scale(matrix7, glm::vec3(0.5f, 0.15f, 0.15f));
+		cylinder2.setProjectionMatrix(projection);
+		cylinder2.setViewMatrix(view);
+		cylinder2.enableWireMode();
+		cylinder2.render(matrix7);
 
 		matrixs6 = glm::scale(matrixs6, glm::vec3(0.1f, 0.1f, 0.1f));
 		sphere.setProjectionMatrix(projection);
 		sphere.setViewMatrix(view);
 		sphere.enableWireMode();
+		sphere.setColor(glm::vec3(1.0, 0.3, 0.2));
 		sphere.render(matrixs6);
+
+		//termina brazo derecho
+
+//Brazo izquierdo
+
+		glm::mat4 matrixs9 = glm::translate(matrixs5, glm::vec3(-0.3f, 0.0f, 0.0f));
+		glm::mat4 matrix9 = glm::rotate(matrixs9, 0.5f, glm::vec3(0.0f, 0.0f, 1.0f));
+		glm::mat4 matrixs8 = glm::translate(matrix9, glm::vec3(-0.5f, 0.0f, 0.0f));
+		glm::mat4 matrix10 = glm::rotate(matrixs8, -1.5f, glm::vec3(0.0f, 0.0f, 1.0f));
+		matrix10 = glm::translate(matrix10, glm::vec3(0.25f, 0.0f, 0.0f));
+
+		glm::mat4 matrixs11 = glm::translate(matrix10, glm::vec3(0.3f, 0.0f, 0.0f));
+		matrixs11 = glm::scale(matrixs11, glm::vec3(0.1f, 0.1f, 0.1f));
+		sphere.setProjectionMatrix(projection);
+		sphere.setViewMatrix(view);
+		sphere.enableWireMode();
+		sphere.render(matrixs11);
+
+
+		matrix10 = glm::scale(matrix10, glm::vec3(0.5f, 0.15f, 0.15f));
+		cylinder.setProjectionMatrix(projection);
+		cylinder.setViewMatrix(view);
+		cylinder.enableWireMode();
+		cylinder.render(matrix10);
+
+
+		matrixs8 = glm::scale(matrixs8, glm::vec3(0.1f, 0.1f, 0.1f));
+		sphere.setProjectionMatrix(projection);
+		sphere.setViewMatrix(view);
+		sphere.enableWireMode();
+		sphere.render(matrixs8);
+
+
+		matrix9 = glm::translate(matrix9, glm::vec3(-0.25f, 0.0f, 0.0f));
+		matrix9 = glm::scale(matrix9, glm::vec3(0.5f, 0.15f, 0.15f));
+		cylinder.setProjectionMatrix(projection);
+		cylinder.setViewMatrix(view);
+		cylinder.enableWireMode();
+		cylinder.render(matrix9);
+
+
+		matrixs9 = glm::scale(matrixs9, glm::vec3(0.1f, 0.1f, 0.1f));
+		sphere.setProjectionMatrix(projection);
+		sphere.setViewMatrix(view);
+		sphere.enableWireMode();
+		sphere.render(matrixs9);
+
+
+		//termina el brazo izquierdo
+
+		//cabeza
+		glm::mat4 matrix12 = glm::translate(matrixs5, glm::vec3(0.0f, 0.3f, 0.0f));
+		matrix12 = glm::scale(matrix12, glm::vec3(0.4f, 0.5f, 0.15f));
+		cylinder.setProjectionMatrix(projection);
+		cylinder.setViewMatrix(view);
+		cylinder.enableWireMode();
+		cylinder.render(matrix12);
+
+
 
 		matrixs5 = glm::scale(matrixs5, glm::vec3(0.1f, 0.1f, 0.1f));
 		sphere.setProjectionMatrix(projection);
 		sphere.setViewMatrix(view);
 		sphere.enableWireMode();
-		cylinder.setColor(glm::vec3(0.8, 0.3, 1.0));
 		sphere.render(matrixs5);
 
+		//se escala el cilindro del torso en 6 unidades
 		matrix0 = glm::scale(matrix0, glm::vec3(0.6f, 1.0f, 0.6f));
-		// Se dibuja el cylindro
+		//se dibuja el cilindro
 		cylinder.setProjectionMatrix(projection);
 		cylinder.setViewMatrix(view);
 		cylinder.enableWireMode();
-		cylinder.setColor(glm::vec3(0.8, 0.3, 1.0));
 		cylinder.render(matrix0);
+
 
 		glm::mat4 matrixs2 = glm::translate(matrixs1, glm::vec3(-0.225f, 0.0f, 0.0f));
 		glm::mat4 matrixs3 = glm::translate(matrixs1, glm::vec3(0.225f, 0.0f, 0.0f));
@@ -303,6 +472,8 @@ void applicationLoop() {
 		sphere.enableWireMode();
 		sphere.render(matrixs1);
 
+
+		//pierna izquierda inicio
 		glm::mat4 matrix1 = glm::rotate(matrixs2, -0.2f, glm::vec3(0.0f, 0.0f, 1.0f));
 		matrix1 = glm::translate(matrix1, glm::vec3(0.0, -0.4, 0.0));
 
@@ -310,32 +481,81 @@ void applicationLoop() {
 
 		glm::mat4 matrix2 = glm::rotate(matrixs4, 0.3f, glm::vec3(0.0f, 0.0f, 1.0f));
 		matrix2 = glm::translate(matrix2, glm::vec3(0.0f, -0.3f, 0.0f));
-		matrix2 = glm::scale(matrix2, glm::vec3(0.1, 0.6, 0.1));
-		cylinder2.setProjectionMatrix(projection);
-		cylinder2.setViewMatrix(view);
-		cylinder2.enableWireMode();
-		cylinder.setColor(glm::vec3(0.8, 0.3, 1.0));
-		cylinder2.render(matrix2);
 
-		matrixs4 = glm::scale(matrixs4, glm::vec3(0.1f, 0.1f, 0.1f));
+
+		glm::mat4 matrixs15 = glm::translate(matrix2, glm::vec3(0.0f, -0.35f, 0.0f));
+		matrixs15 = glm::scale(matrixs15, glm::vec3(0.1f, 0.1f, 0.3f));
 		sphere.setProjectionMatrix(projection);
 		sphere.setViewMatrix(view);
 		sphere.enableWireMode();
-		cylinder.setColor(glm::vec3(0.8, 0.3, 1.0));
+		sphere.render(matrixs15);
+
+		matrix2 = glm::scale(matrix2, glm::vec3(0.15, 0.6, 0.15));
+		cylinder.setProjectionMatrix(projection);
+		cylinder.setViewMatrix(view);
+		cylinder.enableWireMode();
+		cylinder.render(matrix2);
+
+		matrixs4 = glm::scale(matrixs4, glm::vec3(0.1f, 0.1f, 0.2f));
+		sphere.setProjectionMatrix(projection);
+		sphere.setViewMatrix(view);
+		sphere.enableWireMode();
 		sphere.render(matrixs4);
 
 		matrix1 = glm::scale(matrix1, glm::vec3(0.15f, 0.8f, 0.15f));
 		cylinder.setProjectionMatrix(projection);
 		cylinder.setViewMatrix(view);
 		cylinder.enableWireMode();
-		cylinder.setColor(glm::vec3(0.1, 0.2, 0.4));
 		cylinder.render(matrix1);
+		//pierna izquierda fin
+
 
 		matrixs2 = glm::scale(matrixs2, glm::vec3(0.1f, 0.1f, 0.1f));
 		sphere.setProjectionMatrix(projection);
 		sphere.setViewMatrix(view);
 		sphere.enableWireMode();
 		sphere.render(matrixs2);
+
+
+		//pierna derecha inicio
+
+		glm::mat4 matrix13 = glm::rotate(matrixs3, 0.2f, glm::vec3(0.0f, 0.0f, 1.0f));
+		matrix13 = glm::translate(matrix13, glm::vec3(0.0, -0.4, 0.0));
+
+		glm::mat4 matrixs13 = glm::translate(matrix13, glm::vec3(0.0f, -0.4f, 0.0f));
+
+		glm::mat4 matrix14 = glm::rotate(matrixs13, -0.3f, glm::vec3(0.0f, 0.0f, 1.0f));
+		matrix14 = glm::translate(matrix14, glm::vec3(0.0f, -0.3f, 0.0f));
+
+
+		glm::mat4 matrixs16 = glm::translate(matrix14, glm::vec3(0.0f, -0.35f, 0.0f));
+		matrixs16 = glm::scale(matrixs16, glm::vec3(0.1f, 0.1f, 0.3f));
+		sphere.setProjectionMatrix(projection);
+		sphere.setViewMatrix(view);
+		sphere.enableWireMode();
+		sphere.render(matrixs16);
+
+
+
+		matrix14 = glm::scale(matrix14, glm::vec3(0.15, 0.6, 0.15));
+		cylinder.setProjectionMatrix(projection);
+		cylinder.setViewMatrix(view);
+		cylinder.enableWireMode();
+		cylinder.render(matrix14);
+
+		matrixs13 = glm::scale(matrixs13, glm::vec3(0.1f, 0.1f, 0.2f));
+		sphere.setProjectionMatrix(projection);
+		sphere.setViewMatrix(view);
+		sphere.enableWireMode();
+		sphere.render(matrixs13);
+
+		matrix13 = glm::scale(matrix13, glm::vec3(0.15f, 0.8f, 0.15f));
+		cylinder.setProjectionMatrix(projection);
+		cylinder.setViewMatrix(view);
+		cylinder.enableWireMode();
+		cylinder.render(matrix13);
+
+		//pierna derecha fin
 
 		matrixs3 = glm::scale(matrixs3, glm::vec3(0.1f, 0.1f, 0.1f));
 		sphere.setProjectionMatrix(projection);

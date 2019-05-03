@@ -151,105 +151,188 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 		std::cout << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n" << infoLog
 			<< std::endl;
 	}
-	/*
-	// This is for the render with index element
-	Vertex vertices[] =
-	{
-		{ { -0.5f, -0.5f, 0.0f } , { 1.0f, 0.0f, 0.0f } },
-		{ { 0.5f , -0.5f, 0.0f } , { 0.0f, 1.0f, 0.0f } },
-		{ { 0.5f , 0.5f , 0.0f } , { 0.0f, 0.0f, 1.0f } },
-		{ {-0.5f , 0.5f , 0.0f } , { 1.0f, 0.0f, 1.0f } },
-	};
-
-	GLuint indices[] = {  // Note that we start from 0!
-		0, 1, 2,  // First Triangle
-		0, 2, 3   // Second Triangle
-	};
-
-	const size_t bufferSize = sizeof(vertices);
-	const size_t vertexSize = sizeof(vertices[0]);
-	const size_t rgbOffset = sizeof(vertices[0].XYZ);
-
-	std::cout << "Buffer Size:" << bufferSize << std::endl;
-	std::cout << "Vertex Size:" << vertexSize << std::endl;
-	std::cout << "Buffer size:" << rgbOffset << std::endl;
-
-	glGenVertexArrays(1, &VAO);
-	glGenBuffers(1, &VBO);
-	// This is for the render with index element
-	glGenBuffers(1, &EBO);
-	// Bind the Vertex Array Object first, then bind and set vertex buffer(s) and attribute pointer(s).
-	glBindVertexArray(VAO);
-
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, bufferSize, vertices, GL_STATIC_DRAW);
-
-	// This is for the render with index element
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 	
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, vertexSize, 0);
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, vertexSize,
-		(GLvoid*)rgbOffset);
-
-	glEnableVertexAttribArray(0);
-	glEnableVertexAttribArray(1);
-
-	glBindVertexArray(0);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,0);
-	*/
-	//creaRec();
 	creaEstrella();
-<<<<<<< HEAD
 }
 
 void creaEstrella() {
 	Vertex vertices[] =
 	{
-		//centro estrella
-		{ {0.0f, 0.0f, 0.0f}, { 1.0f, 1.0f, 1.0f} },//0
-		//parte de arriba
-		{ { -0.2f, 0.8f, 0.0f } , { 1.0f, 0.0f, 1.0f } },//1
-		{ { 0.2f , 0.8f, 0.0f } , { 1.0f, 0.0f, 1.0f } },//2
-		{ { 0.0f , 0.8f , 0.0f } , { 0.0f, 1.0f, 1.0f } },//3
-		{ { 0.0f , 1.0f , 0.0f } , { 1.0f, 0.0f, 1.0f } },//4
-		//parte de abajo
-		{ { -0.2f, -0.8f, 0.0f } , { 1.0f, 0.0f, 1.0f } },//5
-		{ { 0.2f , -0.8f, 0.0f } , { 1.0f, 0.0f, 1.0f } },//6
-		{ { 0.0f , -0.8f , 0.0f } , { 0.0f, 1.0f, 1.0f } },//7
-		{ { 0.0f , -1.0f , 0.0f } , { 1.0f, 0.0f, 1.0f } },//8
-		//parte izquierda
-		{ { -0.8f, -0.2f, 0.0f } , { 1.0f, 0.0f, 1.0f } },//9
-		{ { -0.8f , 0.2f, 0.0f } , { 1.0f, 0.0f, 1.0f } },//10
-		{ { -0.8f , 0.0f , 0.0f } , { 0.0f, 1.0f, 1.0f } },//11
-		{ { -1.0f , 0.0f , 0.0f } , { 1.0f, 0.0f, 1.0f } },//12
-		//parte derecha
-		{ { 0.8f, -0.2f, 0.0f } , { 1.0f, 0.0f, 1.0f } },//13
-		{ { 0.8f , 0.2f, 0.0f } , { 1.0f, 0.0f, 1.0f } },//14
-		{ { 0.8f , 0.0f , 0.0f } , { 0.0f, 1.0f, 1.0f } },//15
-		{ { 1.0f , 0.0f , 0.0f } , { 1.0f, 0.0f, 1.0f } },//16
+		//cabeza superior trasera
+		{ { -0.51f, 0.6f, 0.0f} , { 1.0f, 0.8f, 1.0f} },//0C
+		{ { -0.15f, 0.53f, 0.0f } , { 1.0f, 0.8f, 1.0f} },//1D
+		{ { -0.04f , 0.73f, 0.0f } , { 1.0f, 0.6f, 0.8f} },//2E
+		{ { -0.28f , 0.76f , 0.0f } , { 1.0f, 0.6f, 0.8f} },//3F
+
+		//cabeza superior frontal
+		{ { -0.77f , 0.2f , 0.0f } , { 1.0f, 0.6f, 0.8f} },//4G
+		{ { -0.49f, 0.11f, 0.0f } , { 1.0f, 0.1f, 0.2f} },//5H
+		{ { -0.35f , 0.3f, 0.0f } , { 1.0f, 0.6f, 0.8f} },//6I
+		{ { -0.31f , 0.49f , 0.0f } , { 1.0f, 0.6f, 0.8f} },//7J
+		{ { -0.57f , 0.14f , 0.0f } , { 1.0f, 0.6f, 0.8f} },//8K
+
+		{ { -0.77f , 0.2f , 0.0f } , { 0.8f, 1.0f, 1.0f} },//9G
+		{ { -0.57f , 0.14f , 0.0f } , { 0.6f, 0.8f, 1.0f} },//10K
+		{ { -0.49f, 0.11f, 0.0f } , { 0.6f, 0.8f, 1.0f} },//11H
+		{ { -0.83f, -0.01f, 0.0f } , { 0.6f, 0.8f, 1.0f} },//12L
+		{ { -0.85f , -0.15f, 0.0f } , { 0.6f, 0.8f, 1.0f} },//13M
+		{ { -0.69f , -0.2f , 0.0f } , { 0.6f, 0.8f, 1.0f} },//14N
+
+
+		{ { -0.67f , -0.21f , 0.0f } , { 0.4f, 0.5f, 0.5f} },//15O
+		{ { -0.41f, 0.06f, 0.0f } , { 0.4f, 0.5f, 0.5f} },//16P
+		{ { -0.36f , -0.09f, 0.0f } , { 0.2f, 0.25f, 0.5f} },//17Q
+
+
+
+		{ { -0.49f, 0.11f, 0.0f } , { 1.0f, 0.1f, 0.2f} },//18H
+		{ { -0.41f, 0.06f, 0.0f } , { 0.5f, 0.1f, 0.2f} },//19P
+		{ { -0.27f, 0.21f, 0.0f } , { 0.5f, 0.1f, 0.2f} },//20R
+		{ { -0.35f , 0.3f, 0.0f } , { 1.0f, 0.1f, 0.2f} },//21I
+
+
+		{ { -0.35f , 0.3f, 0.0f } , { 1.0f, 1.0f, 1.0f} },//22I
+		{ { -0.15f, 0.53f, 0.0f } , { 1.0f, 1.0f, 1.0f} },//23D
+		{ { -0.31f , 0.49f , 0.0f } , { 1.0f, 1.0f, 1.0f} },//24J
+		{ { -0.27f, 0.21f, 0.0f } , { 0.6f, 0.6f, 0.6f} },//25R
+		{ { -0.09f, 0.24f, 0.0f } , { 0.6f, 0.6f, 0.6f} },//26S
+		{ { -0.03f, 0.42f, 0.0f } , { 0.6f, 0.6f, 0.6f} },//27T
+
+
+		{ { -0.41f, 0.06f, 0.0f } , { 0.5f, 0.05f, 0.1f} },//28P
+		{ { -0.36f , -0.09f, 0.0f } , { 0.5f, 0.05f, 0.1f} },//29Q
+		{ { -0.27f, 0.21f, 0.0f } , { 0.5f, 0.05f, 0.1f} },//30R
+		{ { -0.09f, 0.24f, 0.0f } , { 0.5f, 0.05f, 0.1f} },//31S
+		{ { -0.03f, 0.42f, 0.0f } , { 0.5f, 0.05f, 0.1f} },//32T
+		{ { -0.16f , -0.01f, 0.0f } , { 0.5f, 0.05f, 0.1f} },//33U
+		{ { 0.1f , 0.26f, 0.0f } , { 0.5f, 0.05f, 0.1f} },//34V
+		{ { 0.15f , 0.51f, 0.0f } , { 0.5f, 0.05f, 0.1f} },//35W
+
+		{ { -0.03f, 0.42f, 0.0f } , { 0.5f, 0.1f, 0.2f} },//36T
+		{ { 0.15f , 0.51f, 0.0f } , { 0.5f, 0.1f, 0.2f} },//37W
+		{ { -0.04f , 0.73f, 0.0f } , { 1.0f, 0.1f, 0.2f} },//38E
+		{ { -0.15f, 0.53f, 0.0f } , { 1.0f, 0.1f, 0.2f} },//39D
+
+	
+		{ { -0.02f , 0.09f, 0.0f } , { 0.5f, 0.1f, 0.2f} },//40B1
+		{ { 0.22f , 0.16f, 0.0f } , { 1.0f, 0.8f, 1.0f} },//41F1
+		{ { 0.02f, 0.18f, 0.0f } , { 0.5f, 0.1f, 0.2f} },//42E1
+		{ { -0.05f, 0.11f, 0.0f } , { 0.5f, 0.1f, 0.2f} },//43A1
+		{ { 0.4f , 0.21f, 0.0f } , { 0.5f, 0.1f, 0.2f} },//44C1
+		{ { 0.34f, 0.21f, 0.0f } , { 0.5f, 0.1f, 0.2f} },//45D1
+
+		
+		{ { -0.02f , 0.09f, 0.0f } , { 0.2f, 0.25f, 0.5f} },//46B1
+		{ { 0.03f , -0.16f, 0.0f } , { 0.6f, 0.8f, 1.0f} },//47I1
+		{ { 0.07f, -0.02f, 0.0f } , { 0.6f, 0.8f, 1.0f} },//48J1
+		{ { 0.09f, -0.45f, 0.0f } , { 0.6f, 0.8f, 1.0f} },//49G1
+		{ { 0.17f , -0.12f, 0.0f } , { 0.6f, 0.8f, 1.0f} },//50H1
+
+
+		{ { -0.16f , -0.01f, 0.0f } , { 0.2f, 0.25f, 0.5f} },//51U
+		{ { -0.27f , -0.05f, 0.0f } , { 0.2f, 0.25f, 0.5f} },//52K1
+		{ { -0.33f , -0.08f, 0.0f } , { 0.6f, 0.8f, 1.0f} },//53L1
+		{ { -0.44f , -0.36f, 0.0f } , { 0.8f, 1.0f, 1.0f} },//54M1
+
+
+		{ { -0.44f , -0.36f, 0.0f } , { 0.4f, 0.2f, 0.8f} },//55M1
+		{ { -0.05f , -0.59f, 0.0f } , { 0.4f, 0.2f, 0.8f} },//56N1
+		{ { 0.19f , -0.66f, 0.0f } , { 0.6f, 0.8f, 1.0f} },//57O1
+
+		{ { 0.09f, -0.45f, 0.0f } , { 0.5f, 0.05f, 0.1f} },//58G1
+		{ { 0.19f , -0.66f, 0.0f } , { 0.5f, 0.05f, 0.1f} },//59O1
+		{ { 0.28f , -0.54f, 0.0f } , { 0.5f, 0.05f, 0.1f} },//60P1
+		{ { 0.36f , -0.13f, 0.0f } , { 0.5f, 0.05f, 0.1f} },//61Q1
+
+		{ { 0.55f , -0.06f, 0.0f } , { 0.5f, 0.05f, 0.1f} },//62R1
+		{ { 0.54f , 0.09f, 0.0f } , { 0.5f, 0.05f, 0.1f} },//63S1
+
+		{ { 0.54f , 0.09f, 0.0f } , { 1.0f, 0.1f, 0.2f} },//64S1
+		{ { 0.09f, -0.45f, 0.0f } , { 1.0f, 0.1f, 0.2f} },//65G1
+		{ { 0.17f , -0.12f, 0.0f } , { 1.0f, 0.1f, 0.2f} },//66H1
+		{ { -0.02f , 0.09f, 0.0f } , { 0.5f, 0.1f, 0.2f} },//67B1
+		{ { 0.4f , 0.21f, 0.0f } , { 1.0f, 0.1f, 0.2f} },//68C1
+
+
+		
+
+
+		//ojo
+		{ { -0.2f, 0.36f, 0.0f } , { 0.0f, 0.0f, 0.0f} },//?Z
+
 
 	};
 
 	GLuint indices[] = {
-		//parte de arriba
-		0, 3, 1,
-		0, 2, 3,
-		3, 4, 1,
-		3, 2, 4,
-		0, 7, 5,
-		0, 6, 7,
-		7, 8, 5,
-		7, 6, 8,
-		0, 10, 11,
-		0, 9, 11,
-		11, 9, 12,
-		11, 12, 10,
-		0, 14, 15,
-		0, 13, 15,
-		15, 13, 16,
-		15, 16, 14
+		//cabeza superior trasera
+		0, 1, 2,
+		2, 3, 0,
+		//cabeza superior frontal
+		0, 7, 1,
+		4, 7, 0,
+		4, 6, 7,
+		8, 5, 6,
+		4, 8, 6,
+		//pico superior
+		9, 12, 10,
+		12, 13, 10,
+		13, 11, 10,
+		13, 14, 11,
+		//pido lateral
+		14, 16, 11,
+		14, 16, 15,
+		//pico lateral inferior
+		15, 17, 16,
+		//cabeza lateral delantera
+		18, 19, 20,
+		20, 21, 18,
+		//ojo
+		22,23,24,
+		22,25,27,
+		27,22,23,
+		25,26,27,
+		//cabeza lado inferior
+		28,29,30,
+		29,33,30,
+		33,31,30,
+		33,34,31,
+		34,31,32,
+		34,35,32,
+		//cabeza lateral trasera
+		36,37,38,
+		38,39,36,
+		//lomo
+		40,41,42,
+		42,43,40,
+		41,44,45,
+		45,42,41,
+		//triangulo lateral
+		46,47,48,
+		47,49,50,
+		50,48,47,
+		//pecho
+		53,54,49,
+		53,49,47,
+		47,52,53,
+		51,52,47,
+		51,47,46,
+		40,43,51,
+		//pecho inferior
+		56,57,49,
+		49,55,56,
+		//Lateral inferior frontal
+		58,59,60,
+		60,61,58,
+		//Lateral inferior trasero
+		61,62,63,
+		//Lateral superior
+		67,64,68,
+		64,67,66,
+		65,64,66,
+		//
+
+
+
 	};
 
 	const size_t VertexSize = sizeof(vertices);
@@ -318,96 +401,6 @@ void creaRec() {
 	glBindVertexArray(0);
 }
 
-=======
-}
-
-void creaEstrella() {
-	Vertex vertices[] =
-	{
-		//centro estrella
-		{ {0.0f, 0.0f, 0.0f}, { 1.0f, 1.0f, 1.0f} },
-		//parte de arriba
-		{ { -0.2f, 0.8f, 0.0f } , { 0.0f, 1.0f, 0.0f } },
-		{ { 0.2f , 0.8f, 0.0f } , { 0.0f, 0.0f, 1.0f } },
-		{ { 0.0f , 0.8f , 0.0f } , { 0.0f, 1.0f, 1.0f } },
-		{ { 0.0f , 1.0f , 0.0f } , { 1.0f, 0.0f, 1.0f } },
-	};
-
-	GLuint indices[] = {
-		//parte de arriba
-		0 , 3, 1,
-		0 , 2, 3,
-		3 , 4, 1,
-		3, 2, 4
-	};
-
-	const size_t VertexSize = sizeof(vertices);
-	const size_t StrideSize = sizeof(vertices[0]);
-	const size_t OffsetPos = sizeof(vertices[0].XYZ);
-
-	glGenVertexArrays(1, &VAO);
-	glBindVertexArray(VAO);
-
-	glGenBuffers(1, &VBO);
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, VertexSize, vertices, GL_STATIC_DRAW);
-
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, StrideSize, 0);
-
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, StrideSize, (GLvoid*)OffsetPos);
-
-	glEnableVertexAttribArray(0);
-	glEnableVertexAttribArray(1);
-
-	glGenBuffers(1, &EBO);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-
-	glBindVertexArray(0);
-
-}
-
-void creaRec() {
-	Vertex vertices[] =
-	{
-		//centro 
-		{ { -0.5f, -0.5f, 0.0f } , { 1.0f, 0.0f, 0.0f } },
-		{ { 0.5f , -0.5f, 0.0f } , { 0.0f, 1.0f, 0.0f } },
-		{ { 0.5f , 0.5f , 0.0f } , { 0.0f, 0.0f, 1.0f } },
-		{ {-0.5f , 0.5f , 0.0f } , { 1.0f, 0.0f, 1.0f } },
-	};
-
-	GLuint indices[] = {
-		0 , 1, 2,
-		0 , 2, 3
-	};
-
-	const size_t VertexSize = sizeof(vertices);
-	const size_t StrideSize = sizeof(vertices[0]);
-	const size_t OffsetPos = sizeof(vertices[0].XYZ);
-
-	glGenVertexArrays(1, &VAO);
-	glBindVertexArray(VAO);
-
-	glGenBuffers(1, &VBO);
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, VertexSize, vertices, GL_STATIC_DRAW);
-
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, StrideSize, 0);
-
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, StrideSize, (GLvoid*) OffsetPos);
-
-	glEnableVertexAttribArray(0);
-	glEnableVertexAttribArray(1);
-
-	glGenBuffers(1, &EBO);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-
-	glBindVertexArray(0);
-}
-
->>>>>>> 112f0149b288b7c38a62ff13ac54fa936b560a98
 
 void destroyWindow() {
 	glfwDestroyWindow(window);
@@ -498,11 +491,7 @@ void applicationLoop() {
 		glBindVertexArray(VAO);
 		// This is for the render with index element
 		//primitiva, num indices, tipo de dato, apuntador a inicio de datos
-<<<<<<< HEAD
-		glDrawElements(GL_TRIANGLES, 48, GL_UNSIGNED_INT, 0);
-=======
-		glDrawElements(GL_TRIANGLES, 12, GL_UNSIGNED_INT, 0);
->>>>>>> 112f0149b288b7c38a62ff13ac54fa936b560a98
+		glDrawElements(GL_TRIANGLES, 149, GL_UNSIGNED_INT, 0);
 		//esto es para dibujar sin indices
 		//glDrawArrays(GL_TRIANGLES, 0, 4);
 		glBindVertexArray(0);
