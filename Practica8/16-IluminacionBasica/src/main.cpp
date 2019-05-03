@@ -128,6 +128,9 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 
 	camera->setPosition(glm::vec3(0.0f, 0.0f, 0.4f));
 
+	camera->setSensitivity(800.0);
+
+
 	// Descomentar
 	int imageWidth, imageHeight;
 	Texture texture1("../../Textures/goku.png");
@@ -258,10 +261,19 @@ void applicationLoop() {
 		if (angle > 2 * M_PI)
 			angle = 0.0;
 		else
-			angle += 0.001;
+			angle += 0.001; //disminuir o aumentar la velocidad de la esfera
 
 		glm::mat4 lightModelmatrix = glm::rotate(cubeModelMatrix, angle, glm::vec3(0.0f, 1.0f, 0.0f));
 		lightModelmatrix = glm::translate(lightModelmatrix, glm::vec3(0.0f, 0.0f, -ratio));
+
+
+		iluminacionShader.turnOn();
+		glUniform3f(iluminacionShader.getUniformLocation("light.ambient"), 0.4, 0.4, 0.4);
+		glUniform3f(iluminacionShader.getUniformLocation("light.diffuse"), 0.7, 0.2, 0.1);
+		glUniform3f(iluminacionShader.getUniformLocation("light.specular"), 0.3, 0.0, 1.0);
+		glUniform3fv(iluminacionShader.getUniformLocation("light.position"), 1, glm::value_ptr(glm::vec3(lightModelmatrix * glm::vec4(0.0,0.0,0.0,1.0))));
+		glUniform3fv(iluminacionShader.getUniformLocation("viewPos"), 1, glm::value_ptr(camera->getPosition()));
+		iluminacionShader.turnOff();
 
 		sphere.setProjectionMatrix(projection);
 		sphere.setViewMatrix(view);
@@ -273,7 +285,7 @@ void applicationLoop() {
 }
 
 int main(int argc, char ** argv) {
-	init(800, 700, "Window GLFW", false);
+	init(800, 700, "=====Zenteno Vision=====", false);
 	applicationLoop();
 	destroy();
 	return 1;
