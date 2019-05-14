@@ -165,7 +165,7 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 	boxWater.init();
 	boxWater.scaleUVS(glm::vec2(1.0, 1.0));
 	modelRock.loadModel("../../models/rock/rock.obj");
-	modelRail.loadModel("../../models/railroad/railroad_track.obj");
+	modelRail.loadModel("../../models/Conifer_1_Obj/Tree_Conifer_1.obj");
 	modelAirCraft.loadModel("../../models/Aircraft_obj/E 45 Aircraft_obj.obj");
 	nanoSuit.loadModel("../../models/nanosuit/nanosuit.obj");
 
@@ -481,7 +481,7 @@ void applicationLoop() {
 		modelRail.setProjectionMatrix(projection);
 		modelRail.setViewMatrix(view);
 		modelRail.setPosition(glm::vec3(-10.0, 0.0, 25.0));
-		modelRail.setScale(glm::vec3(1.0, 1.0, 1.0));
+		modelRail.setScale(glm::vec3(0.01, 0.01, 0.01));
 		modelRail.render();
 
 		modelAirCraft.setShader(&shaderLighting);

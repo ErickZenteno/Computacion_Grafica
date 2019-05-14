@@ -504,6 +504,7 @@ void applicationLoop() {
 		glm::mat4 matrixL0 = glm::mat4(1.0f);
 		
 		// Se modela siempre con los ejes de giro en el eje z
+		//convecion de denavit-hartenber para calcular la cinematica directa de un cuerpo rigido
 		// Articulacion 1
 		matrixL0 = glm::rotate(matrixL0, rot1, glm::vec3(0.0f, 0.0f, 1.0f));
 		if (saveFrame)
@@ -579,7 +580,7 @@ void applicationLoop() {
 }
 
 int main(int argc, char ** argv) {
-	init(800, 700, "Window GLFW", false);
+	init(800, 700, "========Zenteno Vision========", false);
 	applicationLoop();
 	destroy();
 	return 1;

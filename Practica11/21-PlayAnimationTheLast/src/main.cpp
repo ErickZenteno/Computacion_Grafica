@@ -473,10 +473,13 @@ void applicationLoop() {
 	float rotationAirCraft = 0.0;
 	bool finishRotation = true;
 
+	//se obtienen los frames del brazo.
 	std::vector<std::vector<glm::mat4>> keyFramesBrazo = getKeyFrames("../../animaciones/animationMano.txt");
-	int numPasosAnimBrazo = 200;
+	//numero de pasos para moverse de un frame a otro (bascimente la velocidad)
+	int numPasosAnimBrazo = 500;
 	int numPasosAnimBrazoCurr = 0;
 
+	//indices del arreglo keyFramesBrazo el actual y el siguiente
 	int indexKeyFrameBrazoCurr = 0;
 	int indexKeyFrameBrazoNext = 1;
 	float interpolation = 0.0;
@@ -604,13 +607,22 @@ void applicationLoop() {
 		glBindTexture(GL_TEXTURE_2D, textureID3);
 		if (keyFramesBrazo[indexKeyFrameBrazoCurr].size() == 7 && keyFramesBrazo[indexKeyFrameBrazoNext].size() == 7) {
 
+			//matriz de rotacion actual 
 			firstQuat = glm::quat_cast(keyFramesBrazo[indexKeyFrameBrazoCurr][0]);
 			secondQuat = glm::quat_cast(keyFramesBrazo[indexKeyFrameBrazoNext][0]);
+			//slerp hace la interpolacion de quaternion (matriz de rotacion)
 			finalQuat = glm::slerp(firstQuat, secondQuat, interpolation);
+			//se convierte el quaternion a una matriz de 4x4
 			interpoltaedMatrix = glm::mat4_cast(finalQuat);
+			//se obteiene la translacion del frame i -1
 			transformComp1 = keyFramesBrazo[indexKeyFrameBrazoCurr][0] * glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
+			//se obteiene la translacion del frame i
 			transformComp2 = keyFramesBrazo[indexKeyFrameBrazoNext][0] * glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
+			// se realiza la interpolacion entre el frame i-1 y el frame i
+			//transformcomp1 es frame i-1
+			//transformcomp2 es frame i
 			finalTrans = (float)(1.0 - interpolation) * transformComp1 + transformComp2 * interpolation;
+			//unimos la matriz de interpolacion del quaternion y la interpolacion de la translacion
 			interpoltaedMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(finalTrans)) * interpoltaedMatrix;
 
 			// Animacion KeyFrames
@@ -715,6 +727,7 @@ void applicationLoop() {
 		interpolation = numPasosAnimBrazoCurr / (float)numPasosAnimBrazo;
 
 		if (interpolation >= 1.0) {
+			interpolation = 0.0;
 			numPasosAnimBrazoCurr = 0;
 			indexKeyFrameBrazoCurr = indexKeyFrameBrazoNext;
 			indexKeyFrameBrazoNext++;
@@ -823,7 +836,7 @@ void applicationLoop() {
 }
 
 int main(int argc, char ** argv) {
-	init(800, 700, "Window GLFW", false);
+	init(800, 700, "========Zenteno Vision========", false);
 	applicationLoop();
 	destroy();
 	return 1;
