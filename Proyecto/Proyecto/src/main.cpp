@@ -35,7 +35,7 @@ std::shared_ptr<FirstPersonCamera> camera(new FirstPersonCamera());
 
 Sphere sphere(20, 20);
 Cylinder cylinder(20, 20, 0.5, 0.5);
-Box box, box2;
+Box box, box2, box3;
 Box boxWater;
 
 Sphere sphereAnimacion(20, 20);
@@ -58,11 +58,18 @@ Model arturito;
 Model modelTrain;
 Model modelPajaro;
 Model modelPersonas;
-Model modelNano;
+Model modelHumano;
+Model modelHombreAdmirando;
+Model modelCpu;
+
 
 GLuint textureID1, textureHojasID, textureID3, textureCespedID, textureWaterID, textureCubeTexture, textureMetalID,
-textureConcretoID, textureRocaID, textureParedID, texturecrID;
+textureConcretoID, textureRocaID, textureParedID, textureParedSalonID, textureTirolID, texturecrID, texturePuertaCristalID;
 GLuint cubeTextureID;
+
+
+float rot1 = 0.01f;
+
 
 std::vector<std::vector<glm::mat4>> getKeyFrames(std::string fileName) {
 	std::vector<std::vector<glm::mat4>> keyFrames;
@@ -236,13 +243,14 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 	box2.scaleUVS(glm::vec2(1.0, 1.0));
 	boxWater.init();
 	boxWater.scaleUVS(glm::vec2(1.0, 1.0));
+	box3.init();
 	modelRock.loadModel("../../models/rock/rock.obj");
 	modelArbol.loadModel("../../models/Conifer_1_Obj/Tree_Conifer_1.obj");
 	modelAirCraft.loadModel("../../models/Aircraft_obj/E 45 Aircraft_obj.obj");
 	modelPajaro.loadModel("../../models/Drone-Design/Drone_obj.obj");
 	modelPersonas.loadModel("../../models/together__people/people.obj");
-	modelNano.loadModel("../../models/nanosuit/nanosuit.obj");
-
+	modelHumano.loadModel("../../models/Patrick/Patrick.obj");
+	modelHombreAdmirando.loadModel("../../models/30817character007/7.obj");
 
 	camera->setPosition(glm::vec3(0.0f, 15.0f, 30.0f));
 
@@ -447,6 +455,63 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 		std::cout << "Failed to load texture" << std::endl;
 	texture.freeImage(bitmap);
 
+	texture = Texture("../../Textures/ParedSalon.jpg");
+	bitmap = texture.loadImage(false);
+	data = texture.convertToData(bitmap, imageWidth, imageHeight);
+	glGenTextures(1, &textureParedSalonID);
+	glBindTexture(GL_TEXTURE_2D, textureParedSalonID);
+	// set the texture wrapping parameters
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// set texture wrapping to GL_REPEAT (default wrapping method)
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	// set texture filtering parameters
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	if (data) {
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imageWidth, imageHeight, 0, GL_BGRA, GL_UNSIGNED_BYTE, data);
+		glGenerateMipmap(GL_TEXTURE_2D);
+	}
+	else
+		std::cout << "Failed to load texture" << std::endl;
+	texture.freeImage(bitmap);
+
+	texture = Texture("../../Textures/Tirol.png");
+	bitmap = texture.loadImage(false);
+	data = texture.convertToData(bitmap, imageWidth, imageHeight);
+	glGenTextures(1, &textureTirolID);
+	glBindTexture(GL_TEXTURE_2D, textureTirolID);
+	// set the texture wrapping parameters
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// set texture wrapping to GL_REPEAT (default wrapping method)
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	// set texture filtering parameters
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	if (data) {
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imageWidth, imageHeight, 0, GL_BGRA, GL_UNSIGNED_BYTE, data);
+		glGenerateMipmap(GL_TEXTURE_2D);
+	}
+	else
+		std::cout << "Failed to load texture" << std::endl;
+	texture.freeImage(bitmap);
+
+	texture = Texture("../../Textures/puerta_cristal.jpg");
+	bitmap = texture.loadImage(false);
+	data = texture.convertToData(bitmap, imageWidth, imageHeight);
+	glGenTextures(1, &texturePuertaCristalID);
+	glBindTexture(GL_TEXTURE_2D, texturePuertaCristalID);
+	// set the texture wrapping parameters
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// set texture wrapping to GL_REPEAT (default wrapping method)
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	// set texture filtering parameters
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	if (data) {
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imageWidth, imageHeight, 0, GL_BGRA, GL_UNSIGNED_BYTE, data);
+		glGenerateMipmap(GL_TEXTURE_2D);
+	}
+	else
+		std::cout << "Failed to load texture" << std::endl;
+	texture.freeImage(bitmap);
+
 	glGenTextures(1, &cubeTextureID);
 	glBindTexture(GL_TEXTURE_CUBE_MAP, cubeTextureID);
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);	// set texture wrapping to GL_REPEAT (default wrapping method)
@@ -493,6 +558,8 @@ void destroy() {
 
 	box.destroy();
 	box2.destroy();
+	box3.destroy();
+	boxWater.destroy();
 }
 
 void reshapeCallback(GLFWwindow* Window, int widthRes, int heightRes) {
@@ -509,6 +576,14 @@ void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mode
 			break;
 		}
 	}
+	if ((glfwGetKey(window, GLFW_KEY_1) == GLFW_PRESS) && rot1 < 0.0f) {
+
+			rot1 += 0.1;
+	}
+	if ((glfwGetKey(window, GLFW_KEY_2) == GLFW_PRESS) && rot1 > -1.49f) {
+			rot1 -= 0.1;
+	}
+
 }
 
 void mouseCallback(GLFWwindow* window, double xpos, double ypos) {
@@ -562,10 +637,10 @@ void applicationLoop() {
 	float angle = 0.0;
 	float ratio = 20.0;
 
-	float aircraftZ = 0.0;
-	bool direcionAirCraft = true;
+	float aircraftZ = 0.0, saltoY=0.0;
+	bool direcionAirCraft = true, Salto=true;
 	float rotationAirCraft = 0.0;
-	bool finishRotation = true;
+	bool finishRotation = true, Brincar=true;
 
 	// Game loop
 	float NanoZ = 0.0, NanoX = 0.0;
@@ -670,7 +745,7 @@ void applicationLoop() {
 		modelArbol.setShader(&shaderLighting);
 		modelArbol.setProjectionMatrix(projection);
 		modelArbol.setViewMatrix(view);
-		modelArbol.setPosition(glm::vec3(-7.0, 2.5, 35.0));
+		modelArbol.setPosition(glm::vec3(-7.0, 3.5, 35.0));
 		modelArbol.setScale(glm::vec3(0.10, 0.10, 0.10));
 		modelArbol.render();
 
@@ -696,15 +771,23 @@ void applicationLoop() {
 		modelPersonas.render(matrixNano);
 		*/
 
-		modelNano.setShader(&shaderLighting);
-		modelNano.setProjectionMatrix(projection);
-		modelNano.setViewMatrix(view);
-		//modelNano.setPosition(glm::vec3(0.0f, 25.0f, 45.0f));
-		modelNano.setScale(glm::vec3(1.03, 1.03, 1.03));
-		glm::mat4 matrixNano = glm::translate(glm::mat4(1.0f), glm::vec3(NanoX, 0.0f, NanoZ));
-		matrixNano = glm::translate(matrixNano, glm::vec3(-15.0f, 1.5f, 30.0f));
+		modelHumano.setShader(&shaderLighting);
+		modelHumano.setProjectionMatrix(projection);
+		modelHumano.setViewMatrix(view);
+		//modelHumano.setPosition(glm::vec3(0.0f, 25.0f, 45.0f));
+		modelHumano.setScale(glm::vec3(4.03, 4.03, 4.03));
+		glm::mat4 matrixNano = glm::translate(glm::mat4(1.0f), glm::vec3(NanoX, saltoY , NanoZ));
+		matrixNano = glm::translate(matrixNano, glm::vec3(-13.0f, 1.15f, 25.0f));
 		matrixNano = glm::rotate(matrixNano, rotationNano, glm::vec3(0, 1, 0));
-		modelNano.render(matrixNano);
+		modelHumano.render(matrixNano);
+
+		//no hace nada
+		modelHombreAdmirando.setShader(&shaderLighting);
+		modelHombreAdmirando.setProjectionMatrix(projection);
+		modelHombreAdmirando.setViewMatrix(view);
+		modelHombreAdmirando.setPosition(glm::vec3(0.0f, 2.0f, 80.0f));
+		modelHombreAdmirando.setScale(glm::vec3(100.03, 100.03, 100.03));
+		modelHombreAdmirando.render();
 
 
 
@@ -878,7 +961,7 @@ void applicationLoop() {
 		box2.setShader(&shaderLighting);
 		box2.setProjectionMatrix(projection);
 		box2.setViewMatrix(view);
-		box2.setPosition(glm::vec3(-4.0, 1.25, 35.0));
+		box2.setPosition(glm::vec3(-4.0, 2.25, 35.0));
 		box2.setScale(glm::vec3(11.0, 2.5, 11.0));
 		box2.render();
 
@@ -888,7 +971,7 @@ void applicationLoop() {
 		box2.setShader(&shaderLighting);
 		box2.setProjectionMatrix(projection);
 		box2.setViewMatrix(view);
-		box2.setPosition(glm::vec3(-4.0, 2.55, 35.0));
+		box2.setPosition(glm::vec3(-4.0, 3.55, 35.0));
 		box2.setScale(glm::vec3(8.0, 0.001, 8.0));
 		box2.render();
 
@@ -1481,6 +1564,89 @@ void applicationLoop() {
 		box2.setScale(glm::vec3(2.0, 2.0, 8.0));
 		box2.render();
 
+		//////////////////////////////laboratorio
+		//pared donde ira la puerta
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, textureParedSalonID);
+		box2.setShader(&shaderLighting);
+		box2.setProjectionMatrix(projection);
+		box2.setViewMatrix(view);
+		box2.setPosition(glm::vec3(-36.0, 6.5, 25.9));
+		box2.setScale(glm::vec3(26.0, 13.0, 0.0));
+		box2.render();
+		//pared izquierda vista desde puerta
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, textureParedSalonID);
+		box3.setShader(&shaderLighting);
+		box3.setProjectionMatrix(projection);
+		box3.setViewMatrix(view);
+		box3.setScale(glm::vec3(39.0, 13.0, 0.01));
+		glm::mat4 matrixBoxJ21 = glm::translate(glm::mat4(1.0f), glm::vec3(-23.5, 6.5, 45.4));
+		matrixBoxJ21 = glm::rotate(matrixBoxJ21, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		box3.render(matrixBoxJ21);
+		//Pared derecha vista desde la puerta
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, textureParedSalonID);
+		box3.setShader(&shaderLighting);
+		box3.setProjectionMatrix(projection);
+		box3.setViewMatrix(view);
+		box3.setScale(glm::vec3(39.0, 13.0, 0.01));
+		glm::mat4 matrixBoxJ22 = glm::translate(glm::mat4(1.0f), glm::vec3(-48.5, 6.5, 45.4));
+		matrixBoxJ22 = glm::rotate(matrixBoxJ22, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		box3.render(matrixBoxJ22);
+		//pared enfrent de la puerta
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, textureParedSalonID);
+		box2.setShader(&shaderLighting);
+		box2.setProjectionMatrix(projection);
+		box2.setViewMatrix(view);
+		box2.setPosition(glm::vec3(-36.0, 6.5, 64.9));
+		box2.setScale(glm::vec3(26.0, 13.0, 0.0));
+		box2.render();
+		//techo
+		glBindTexture(GL_TEXTURE_2D, textureTirolID);
+		box2.setShader(&shaderLighting);
+		box2.setProjectionMatrix(projection);
+		box2.setViewMatrix(view);
+		box2.setPosition(glm::vec3(-36.0, 13.0, 45.4));
+		box2.setScale(glm::vec3(25.0, 0.05, 39.0));
+		box2.render();
+
+		modelCpu.setShader(&shaderLighting);
+		modelCpu.setProjectionMatrix(projection);
+		modelCpu.setViewMatrix(view);
+		modelCpu.setPosition(glm::vec3(0.0, 6.5, 65.9));
+		modelCpu.setScale(glm::vec3(100.0, 100.0, 0.0));
+		modelCpu.render();
+
+
+		//Puerta crital Derecha
+		glm::mat4 matrixs12 = glm::translate(glm::mat4(1.0f), glm::vec3(1.0f, 6.0f, 2.0f));
+		matrixs12 = glm::rotate(matrixs12, rot1, glm::vec3(0.0f, 1.0f, 0.0f));
+		glm::mat4 matrixc1 = glm::translate(matrixs12, glm::vec3(0.0, 0.0, 3.0));
+		//matrixs12 = glm::rotate(matrixs12, 180.0f, glm::vec3(0.0f, 1.0f, 0.0f));
+		matrixc1 = glm::scale(matrixc1, glm::vec3(0.0001, 10.0, 6.0));
+		matrixs12 = glm::scale(matrixs12, glm::vec3(0.4f, 0.4f, 0.4f));
+		glBindTexture(GL_TEXTURE_2D, texturePuertaCristalID);
+		boxWater.setShader(&shaderLighting);
+		boxWater.setProjectionMatrix(projection);
+		boxWater.setViewMatrix(view);
+		boxWater.render(matrixc1);
+
+		//Puerta crital Izquierda
+		glm::mat4 matrixs2 = glm::translate(glm::mat4(1.0f), glm::vec3(-11.0f, 6.0f, 2.0f));
+		matrixs2 = glm::rotate(matrixs2, -rot1, glm::vec3(0.0f, 1.0f, 0.0f));
+		glm::mat4 matrixc11 = glm::translate(matrixs2, glm::vec3(0.0, 0.0, 3.0));
+		//matrixs12 = glm::rotate(matrixs12, 180.0f, glm::vec3(0.0f, 1.0f, 0.0f));
+		matrixc11 = glm::scale(matrixc11, glm::vec3(0.0001, 10.0, 6.0));
+		matrixs2 = glm::scale(matrixs2, glm::vec3(0.4f, 0.4f, 0.4f));
+		glBindTexture(GL_TEXTURE_2D, texturePuertaCristalID);
+		boxWater.setShader(&shaderLighting);
+		boxWater.setProjectionMatrix(projection);
+		boxWater.setViewMatrix(view);
+		boxWater.render(matrixc11);
+
+
 		/*
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, textureWaterID);
@@ -1558,7 +1724,7 @@ void applicationLoop() {
 		}
 
 		if (direcionNano == 0 && cuartoVuelta == 0) {
-			NanoZ += 0.01;
+			NanoZ += 0.03;
 			if (direcionNano == 0 && NanoZ > 20.0) {
 				direcionNano = 1;
 				cuartoVuelta = 1;
@@ -1566,14 +1732,14 @@ void applicationLoop() {
 			}
 		}
 		if (direcionNano == 1 && cuartoVuelta == 1) {
-			rotationNano += 0.01;
+			rotationNano += 0.03;
 			if (rotationNano > glm::radians(90.0f)) {
 				cuartoVuelta = 2;
 				rotationNano = glm::radians(90.0f);
 			}
 		}
 		if (direcionNano == 1 && cuartoVuelta == 2) {
-			NanoX += 0.01;
+			NanoX += 0.03;
 			if (direcionNano == 1 && NanoX > 18.0) {
 				direcionNano = 2;
 				cuartoVuelta = 2;
@@ -1581,14 +1747,14 @@ void applicationLoop() {
 			}
 		}
 		if (direcionNano == 2 && cuartoVuelta == 2) {
-			rotationNano += 0.01;
+			rotationNano += 0.03;
 			if (rotationNano > glm::radians(180.0f)) {
 				cuartoVuelta = 3;
 				rotationNano = glm::radians(180.0f);
 			}
 		}
 		if (direcionNano == 2 && cuartoVuelta == 3) {
-			NanoZ -= 0.01;
+			NanoZ -= 0.03;
 			if (direcionNano == 2 && NanoZ < 0.0) {
 				direcionNano = 3;
 				cuartoVuelta = 4;
@@ -1596,14 +1762,14 @@ void applicationLoop() {
 			}
 		}
 		if (direcionNano == 3 && cuartoVuelta == 4) {
-			rotationNano += 0.01;
+			rotationNano += 0.03;
 			if (rotationNano > glm::radians(270.0f)) {
 				cuartoVuelta = 5;
 				rotationNano = glm::radians(270.0f);
 			}
 		}
 		if (direcionNano == 3 && cuartoVuelta == 5) {
-			NanoX -= 0.01;
+			NanoX -= 0.03;
 			if (direcionNano == 3 && NanoX < 0.0) {
 				direcionNano = 0;
 				cuartoVuelta = 6;
@@ -1611,10 +1777,24 @@ void applicationLoop() {
 			}
 		}
 		if (direcionNano == 0 && cuartoVuelta == 6) {
-			rotationNano += 0.01;
+			rotationNano += 0.03;
 			if (rotationNano > glm::radians(360.0f)) {
 				cuartoVuelta = 0;
 				rotationNano = glm::radians(0.0f);
+			}
+		}
+		//brincos eje Y
+		if (Brincar) {
+			if (Salto)
+				saltoY -= 0.07;
+			else
+				saltoY += 0.07;
+			if (Salto && saltoY < 0.0) {
+				Salto = false;
+				saltoY = 0.0;
+			}if (!Salto && saltoY > 2.0) {
+				Salto = true;
+				saltoY = 2.0;
 			}
 		}
 
