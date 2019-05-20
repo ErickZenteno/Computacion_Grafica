@@ -35,8 +35,9 @@ std::shared_ptr<FirstPersonCamera> camera(new FirstPersonCamera());
 
 Sphere sphere(20, 20);
 Cylinder cylinder(20, 20, 0.5, 0.5);
-Box box, box2, box3, box4;
+Box box, box2, box3, box4, boxb1, boxb2, boxm, boxm2, boxm3;
 Box boxWater;
+Cylinder cylinder2(20, 20, 0.5, 0.5);
 
 Sphere sphereAnimacion(20, 20);
 Cylinder cylinderAnimacion(20, 20, 0.5, 0.5);
@@ -73,7 +74,8 @@ Model modelLaptop;
 GLuint textureID1, textureHojasID, textureID3, textureCespedID, textureWaterID, textureCubeTexture, textureMetalID,
 textureConcretoID, textureRocaID, textureParedID, textureParedSalonID, textureTirolID, texturecrID, texturePuertaCristalID,
 textureCpuID, textureNegroID, textureMaderaID, textureMonitorID, textureTecladoID, textureMouseID, texturePizarronID,
-textureProyectorID, textureBlancoID, texturePisoID, textureQID, textureGlassID, textureTierraID, textureAuxiliarID, texturePatasID;
+textureProyectorID, textureBlancoID, texturePisoID, textureQID, textureGlassID, textureTierraID, textureAuxiliarID, texturePatasID, 
+textureGarrafonID, textureDispensadorID, textureRojoID , textureBrazoID;
 GLuint cubeTextureID;
 
 std::vector<std::vector<glm::mat4>> getKeyFrames(std::string fileName) {
@@ -164,6 +166,13 @@ float yaw1 = 90.0f;
 float pitch2 = 0.0f;
 float pitch1 = -87.0f;
 
+int dirTotal = 0;
+bool dir = true;
+
+float rot0 = 0, rot2 = 0, rot3 = 0;
+float rot4 = 0, rot5 = 0, rot6 = 0;
+float rot7 = 0, rot8 = 0, rot9 = 0;
+
 // Se definen todos las funciones.
 void reshapeCallback(GLFWwindow* Window, int widthRes, int heightRes);
 void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mode);
@@ -250,6 +259,11 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 	sphere.init();
 	cylinder.init();
 	box.init();
+	boxb1.init();
+	boxb2.init();
+	boxm.init();
+	boxm2.init();
+	boxm3.init();
 	box4.init();
 	box.scaleUVS(glm::vec2(10.0, 10.0));
 	box2.init();
@@ -780,6 +794,101 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 		std::cout << "Failed to load texture" << std::endl;
 	texture.freeImage(bitmap);
 
+	texture = Texture("../../Textures/patas.jpg");
+	bitmap = texture.loadImage(false);
+	data = texture.convertToData(bitmap, imageWidth, imageHeight);
+	glGenTextures(1, &texturePatasID);
+	glBindTexture(GL_TEXTURE_2D, texturePatasID);
+	// set the texture wrapping parameters
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// set texture wrapping to GL_REPEAT (default wrapping method)
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	// set texture filtering parameters
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	if (data) {
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imageWidth, imageHeight, 0, GL_BGRA, GL_UNSIGNED_BYTE, data);
+		glGenerateMipmap(GL_TEXTURE_2D);
+	}
+	else
+		std::cout << "Failed to load texture" << std::endl;
+	texture.freeImage(bitmap);
+
+	texture = Texture("../../Textures/garrafon.jpg");
+	bitmap = texture.loadImage(false);
+	data = texture.convertToData(bitmap, imageWidth, imageHeight);
+	glGenTextures(1, &textureGarrafonID);
+	glBindTexture(GL_TEXTURE_2D, textureGarrafonID);
+	// set the texture wrapping parameters
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// set texture wrapping to GL_REPEAT (default wrapping method)
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	// set texture filtering parameters
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	if (data) {
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imageWidth, imageHeight, 0, GL_BGRA, GL_UNSIGNED_BYTE, data);
+		glGenerateMipmap(GL_TEXTURE_2D);
+	}
+	else
+		std::cout << "Failed to load texture" << std::endl;
+	texture.freeImage(bitmap);
+
+	texture = Texture("../../Textures/dispensador.jpg");
+	bitmap = texture.loadImage(false);
+	data = texture.convertToData(bitmap, imageWidth, imageHeight);
+	glGenTextures(1, &textureDispensadorID);
+	glBindTexture(GL_TEXTURE_2D, textureDispensadorID);
+	// set the texture wrapping parameters
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// set texture wrapping to GL_REPEAT (default wrapping method)
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	// set texture filtering parameters
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	if (data) {
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imageWidth, imageHeight, 0, GL_BGRA, GL_UNSIGNED_BYTE, data);
+		glGenerateMipmap(GL_TEXTURE_2D);
+	}
+	else
+		std::cout << "Failed to load texture" << std::endl;
+	texture.freeImage(bitmap);
+
+
+	texture = Texture("../../Textures/rojo.jpg");
+	bitmap = texture.loadImage(false);
+	data = texture.convertToData(bitmap, imageWidth, imageHeight);
+	glGenTextures(1, &textureRojoID);
+	glBindTexture(GL_TEXTURE_2D, textureRojoID);
+	// set the texture wrapping parameters
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// set texture wrapping to GL_REPEAT (default wrapping method)
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	// set texture filtering parameters
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	if (data) {
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imageWidth, imageHeight, 0, GL_BGRA, GL_UNSIGNED_BYTE, data);
+		glGenerateMipmap(GL_TEXTURE_2D);
+	}
+	else
+		std::cout << "Failed to load texture" << std::endl;
+	texture.freeImage(bitmap);
+
+	texture = Texture("../../Textures/brazo.png");
+	bitmap = texture.loadImage(false);
+	data = texture.convertToData(bitmap, imageWidth, imageHeight);
+	glGenTextures(1, &textureBrazoID);
+	glBindTexture(GL_TEXTURE_2D, textureBrazoID);
+	// set the texture wrapping parameters
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// set texture wrapping to GL_REPEAT (default wrapping method)
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	// set texture filtering parameters
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	if (data) {
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imageWidth, imageHeight, 0, GL_BGRA, GL_UNSIGNED_BYTE, data);
+		glGenerateMipmap(GL_TEXTURE_2D);
+	}
+	else
+		std::cout << "Failed to load texture" << std::endl;
+	texture.freeImage(bitmap);
 
 
 	glGenTextures(1, &cubeTextureID);
@@ -879,12 +988,105 @@ void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mode
 		camera->setFront(glm::vec3(0.0, -compy, -1.0));
 		camera->update();
 	}
+	if (glfwGetKey(window, GLFW_KEY_B) == GLFW_PRESS) {
+		camera->setPitch(pitch2);
+		camera->setYaw(yaw1);
+		camera->setPosition(glm::vec3(27.2, 2.7, 24.8));
+		camera->setUp(glm::vec3(0.0, 1.0, 0.0));
+		camera->setFront(glm::vec3(0.0, -compy, -1.0));
+		camera->update();
+	}
 	if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS) {
 		if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS) {
 			textureAuxiliarID = textureNegroID;
 		}
 		else {
 			textureAuxiliarID = textureMonitorID;
+		}
+	}
+
+	//saludo
+	if (glfwGetKey(window, GLFW_KEY_H) == GLFW_PRESS) {
+		if (dir == true && rot7 > -1.3) {
+			rot7 -= 0.1;
+		}
+		else {
+			dir = false;
+		}
+		if (dir == false && rot7 < 1.3f) {
+			rot7 += 0.1;
+		}
+		else {
+			dir = true;
+		}
+	}
+	//Presumir brazo.
+	if (glfwGetKey(window, GLFW_KEY_T) == GLFW_PRESS) {
+
+		if (dirTotal == 0 && rot7 > -1.3) {
+			rot7 -= 0.1;
+		}
+		else {
+			dirTotal = 1;
+		}
+		if (dirTotal == 1 && rot4 > -1.3) {
+			rot4 -= 0.1;
+		}
+		else {
+			dirTotal = 2;
+		}
+		if (dirTotal == 2 && rot0 > -1.3) {
+			rot0 -= 0.1;
+		}
+		else {
+			dirTotal = 3;
+		}
+		if (dirTotal == 3 && rot0 < 1.3f) {
+			rot0 += 0.1;
+		}
+		else {
+			dirTotal = 4;
+		}
+		if (dirTotal == 4 && rot4 < 1.3f) {
+			rot4 += 0.1;
+		}
+		else {
+			dirTotal = 5;
+		}
+		if (dirTotal == 5 && rot7 < 1.3f) {
+			rot7 += 0.1;
+		}
+		else {
+			dirTotal = 0;
+		}
+	}
+
+	if (glfwGetKey(window, GLFW_KEY_7) == GLFW_PRESS) {
+		if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS) {
+			rot0 -= 0.1;
+		}
+		else {
+			rot0 += 0.1;
+
+		}
+	}
+	if (glfwGetKey(window, GLFW_KEY_8) == GLFW_PRESS) {
+		if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS) {
+			rot4 -= 0.1;
+		}
+		else {
+			rot4 += 0.1;
+
+		}
+	}
+
+	if (glfwGetKey(window, GLFW_KEY_9) == GLFW_PRESS) {
+		if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS) {
+			rot7 -= 0.1;
+		}
+		else {
+			rot7 += 0.1;
+
 		}
 	}
 }
@@ -1479,34 +1681,34 @@ void applicationLoop() {
 
 		//techo derecha
 		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, textureParedID);
+		glBindTexture(GL_TEXTURE_2D, textureRojoID);
 		box2.setShader(&shaderLighting);
 		box.setProjectionMatrix(projection);
 		box.setViewMatrix(view);
 		box.setScale(glm::vec3(26.0f, 90.4f, 0.0f));
-		glm::mat4 matrixBox9 = glm::translate(glm::mat4(1.0f), glm::vec3(27.0, 45.0, -3.3));
+		glm::mat4 matrixBox9 = glm::translate(glm::mat4(1.0f), glm::vec3(27.0, 45.1, -3.3));
 		matrixBox9 = glm::rotate(matrixBox9, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 1.0f));
 		box.render(matrixBox9);
 
 		//techo izquierda
 		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, textureParedID);
+		glBindTexture(GL_TEXTURE_2D, textureRojoID);
 		box2.setShader(&shaderLighting);
 		box.setProjectionMatrix(projection);
 		box.setViewMatrix(view);
 		box.setScale(glm::vec3(26.0, 101.0, 0.0));
-		glm::mat4 matrixBox10 = glm::translate(glm::mat4(1.0f), glm::vec3(-36.0, 45.0, 14.5));
+		glm::mat4 matrixBox10 = glm::translate(glm::mat4(1.0f), glm::vec3(-36.0, 45.1, 14.5));
 		matrixBox10 = glm::rotate(matrixBox10, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 1.0f));
 		box.render(matrixBox10);
 
 		//techo enmedio
 		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, textureParedID);
+		glBindTexture(GL_TEXTURE_2D, textureRojoID);
 		box2.setShader(&shaderLighting);
 		box.setProjectionMatrix(projection);
 		box.setViewMatrix(view);
 		box.setScale(glm::vec3(39.0, 23.5, 0.0));
-		glm::mat4 matrixBox11 = glm::translate(glm::mat4(1.0f), glm::vec3(-4.0, 45.0, -9.8));
+		glm::mat4 matrixBox11 = glm::translate(glm::mat4(1.0f), glm::vec3(-4.0, 45.1, -9.8));
 		matrixBox11 = glm::rotate(matrixBox11, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 1.0f));
 		box.render(matrixBox11);
 
@@ -3409,6 +3611,491 @@ void applicationLoop() {
 		matrixBox125 = glm::rotate(matrixBox125, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 		box4.render(matrixBox125);
 
+		//////////////////////////////////LO NUEVO///////////////////////////////
+		//PILAR-FRONTAL
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, textureParedID);
+		box2.setShader(&shaderLighting);
+		box2.setProjectionMatrix(projection);
+		box2.setViewMatrix(view);
+		box2.setPosition(glm::vec3(-12.0, 23.1, -21.6));
+		box2.setScale(glm::vec3(2.0, 44.0, 1.0));
+		box2.render();
+
+		////PILAR-FRONTAL2
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, textureParedID);
+		box2.setShader(&shaderLighting);
+		box2.setProjectionMatrix(projection);
+		box2.setViewMatrix(view);
+		box2.setPosition(glm::vec3(2.0, 23.1, -21.6));
+		box2.setScale(glm::vec3(2.0, 44.0, 1.0));
+		box2.render();
+
+		////PILAR-H
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, textureParedID);
+		box2.setShader(&shaderLighting);
+		box2.setProjectionMatrix(projection);
+		box2.setViewMatrix(view);
+		box2.setPosition(glm::vec3(-4.5, 12.0, -21.6));
+		box2.setScale(glm::vec3(36.9, 2.0, 1.0));
+		box2.render();
+
+		////PILAR-H2
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, textureParedID);
+		box2.setShader(&shaderLighting);
+		box2.setProjectionMatrix(projection);
+		box2.setViewMatrix(view);
+		box2.setPosition(glm::vec3(-4.5, 22.0, -21.6));
+		box2.setScale(glm::vec3(36.9, 2.0, 1.0));
+		box2.render();
+
+		////PILAR-H3
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, textureParedID);
+		box2.setShader(&shaderLighting);
+		box2.setProjectionMatrix(projection);
+		box2.setViewMatrix(view);
+		box2.setPosition(glm::vec3(-4.5, 32.0, -21.6));
+		box2.setScale(glm::vec3(36.9, 2.0, 1.0));
+		box2.render();
+
+		////PILAR-H4
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, textureParedID);
+		box2.setShader(&shaderLighting);
+		box2.setProjectionMatrix(projection);
+		box2.setViewMatrix(view);
+		box2.setPosition(glm::vec3(-4.5, 42.0, -21.6));
+		box2.setScale(glm::vec3(36.9, 2.0, 1.0));
+		box2.render();
+
+		//VENTANA ENMEDIO13- nuevA
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, textureGlassID);
+		box4.setShader(&shaderLighting);
+		box4.setProjectionMatrix(projection);
+		box4.setViewMatrix(view);
+		box4.setScale(glm::vec3(0.1, 9.0, 12.0));
+		glm::mat4 matrixBox169 = glm::translate(glm::mat4(1.0f), glm::vec3(-5.0, 37.0, -22.0));
+		matrixBox169 = glm::rotate(matrixBox169, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		box4.render(matrixBox169);
+
+		////VENTANA ENMEDIO16- nuevA
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, textureGlassID);
+		box4.setShader(&shaderLighting);
+		box4.setProjectionMatrix(projection);
+		box4.setViewMatrix(view);
+		box4.setScale(glm::vec3(0.1, 9.0, 12.0));
+		glm::mat4 matrixBox170 = glm::translate(glm::mat4(1.0f), glm::vec3(-5.0, 27.0, -22.0));
+		matrixBox170 = glm::rotate(matrixBox170, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		box4.render(matrixBox170);
+
+		//VENTANA ENMEDIO17- nuevA
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, textureGlassID);
+		box4.setShader(&shaderLighting);
+		box4.setProjectionMatrix(projection);
+		box4.setViewMatrix(view);
+		box4.setScale(glm::vec3(0.1, 9.0, 12.0));
+		glm::mat4 matrixBox171 = glm::translate(glm::mat4(1.0f), glm::vec3(-5.0, 17.0, -22.0));
+		matrixBox171 = glm::rotate(matrixBox171, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		box4.render(matrixBox171);
+
+		//VENTANA ENMEDIO17- nuevA
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, textureGlassID);
+		box4.setShader(&shaderLighting);
+		box4.setProjectionMatrix(projection);
+		box4.setViewMatrix(view);
+		box4.setScale(glm::vec3(0.1, 10.0, 12.0));
+		glm::mat4 matrixBox172 = glm::translate(glm::mat4(1.0f), glm::vec3(-5.0, 06.0, -22.0));
+		matrixBox172 = glm::rotate(matrixBox172, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		box4.render(matrixBox172);
+
+		//VENTANA ENMEDIO15- nuevAd
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, textureGlassID);
+		box4.setShader(&shaderLighting);
+		box4.setProjectionMatrix(projection);
+		box4.setViewMatrix(view);
+		box4.setScale(glm::vec3(0.1, 9.0, 12.0));
+		glm::mat4 matrixBox173 = glm::translate(glm::mat4(1.0f), glm::vec3(8.0, 37.0, -22.0));
+		matrixBox173 = glm::rotate(matrixBox173, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		box4.render(matrixBox173);
+
+		//VENTANA ENMEDIO21- nuevAd
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, textureGlassID);
+		box4.setShader(&shaderLighting);
+		box4.setProjectionMatrix(projection);
+		box4.setViewMatrix(view);
+		box4.setScale(glm::vec3(0.1, 9.0, 12.0));
+		glm::mat4 matrixBox174 = glm::translate(glm::mat4(1.0f), glm::vec3(8.0, 27.0, -22.0));
+		matrixBox174 = glm::rotate(matrixBox174, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		box4.render(matrixBox174);
+
+		//VENTANA ENMEDIO22- nuevAd
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, textureGlassID);
+		box4.setShader(&shaderLighting);
+		box4.setProjectionMatrix(projection);
+		box4.setViewMatrix(view);
+		box4.setScale(glm::vec3(0.1, 9.0, 12.0));
+		glm::mat4 matrixBox175 = glm::translate(glm::mat4(1.0f), glm::vec3(8.0, 17.0, -22.0));
+		matrixBox175 = glm::rotate(matrixBox175, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		box4.render(matrixBox175);
+
+		//VENTANA ENMEDIO23- nuevAd
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, textureGlassID);
+		box4.setShader(&shaderLighting);
+		box4.setProjectionMatrix(projection);
+		box4.setViewMatrix(view);
+		box4.setScale(glm::vec3(0.1, 10.0, 12.0));
+		glm::mat4 matrixBox176 = glm::translate(glm::mat4(1.0f), glm::vec3(8.0, 06.0, -22.0));
+		matrixBox176 = glm::rotate(matrixBox176, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		box4.render(matrixBox176);
+
+		//VENTANA ENMEDIO15- nuevAd
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, textureGlassID);
+		box4.setShader(&shaderLighting);
+		box4.setProjectionMatrix(projection);
+		box4.setViewMatrix(view);
+		box4.setScale(glm::vec3(0.1, 9.0, 10.0));
+		glm::mat4 matrixBox178 = glm::translate(glm::mat4(1.0f), glm::vec3(-18.0, 37.0, -22.0));
+		matrixBox178 = glm::rotate(matrixBox178, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		box4.render(matrixBox178);
+
+		//VENTANA ENMEDIO21- nuevAd
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, textureGlassID);
+		box4.setShader(&shaderLighting);
+		box4.setProjectionMatrix(projection);
+		box4.setViewMatrix(view);
+		box4.setScale(glm::vec3(0.1, 9.0, 10.0));
+		glm::mat4 matrixBox179 = glm::translate(glm::mat4(1.0f), glm::vec3(-18.0, 27.0, -22.0));
+		matrixBox179 = glm::rotate(matrixBox179, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		box4.render(matrixBox179);
+
+		//VENTANA ENMEDIO22- nuevAd
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, textureGlassID);
+		box4.setShader(&shaderLighting);
+		box4.setProjectionMatrix(projection);
+		box4.setViewMatrix(view);
+		box4.setScale(glm::vec3(0.1, 9.0, 10.0));
+		glm::mat4 matrixBox180 = glm::translate(glm::mat4(1.0f), glm::vec3(-18.0, 17.0, -22.0));
+		matrixBox180 = glm::rotate(matrixBox180, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		box4.render(matrixBox180);
+
+		//VENTANA ENMEDIO23- nuevAd
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, textureGlassID);
+		box4.setShader(&shaderLighting);
+		box4.setProjectionMatrix(projection);
+		box4.setViewMatrix(view);
+		box4.setScale(glm::vec3(0.1, 10.0, 10.0));
+		glm::mat4 matrixBox181 = glm::translate(glm::mat4(1.0f), glm::vec3(-18.0, 06.0, -22.0));
+		matrixBox181 = glm::rotate(matrixBox181, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		box4.render(matrixBox181);
+
+		//VENTANA izquierda3- nueva
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, textureGlassID);
+		box4.setShader(&shaderLighting);
+		box4.setProjectionMatrix(projection);
+		box4.setViewMatrix(view);
+		box4.setScale(glm::vec3(13.0, 8.0, 0.1));
+		glm::mat4 matrixBox182 = glm::translate(glm::mat4(1.0f), glm::vec3(-23.0, 37.0, -29.0));
+		matrixBox182 = glm::rotate(matrixBox182, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		box4.render(matrixBox182);
+
+		//VENTANA izquierda10- nuevA
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, textureGlassID);
+		box4.setShader(&shaderLighting);
+		box4.setProjectionMatrix(projection);
+		box4.setViewMatrix(view);
+		box4.setScale(glm::vec3(13.0, 8.0, 0.1));
+		glm::mat4 matrixBox183 = glm::translate(glm::mat4(1.0f), glm::vec3(-23.0, 27.0, -29.0));
+		matrixBox183 = glm::rotate(matrixBox183, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		box4.render(matrixBox183);
+
+		//VENTANA izquierda11- nuevA
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, textureGlassID);
+		box4.setShader(&shaderLighting);
+		box4.setProjectionMatrix(projection);
+		box4.setViewMatrix(view);
+		box4.setScale(glm::vec3(13.0, 8.0, 0.1));
+		glm::mat4 matrixBox184 = glm::translate(glm::mat4(1.0f), glm::vec3(-23.0, 17.0, -29.0));
+		matrixBox184 = glm::rotate(matrixBox184, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		box4.render(matrixBox184);
+
+		//VENTANA izquierda12- nuevA
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, textureGlassID);
+		box4.setShader(&shaderLighting);
+		box4.setProjectionMatrix(projection);
+		box4.setViewMatrix(view);
+		box4.setScale(glm::vec3(13.0, 10.0, 0.1));
+		glm::mat4 matrixBox185 = glm::translate(glm::mat4(1.0f), glm::vec3(-23.0, 06.0, -29.0));
+		matrixBox185 = glm::rotate(matrixBox185, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		box4.render(matrixBox185);
+
+		////VENTANA izquierda2- nueva
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, textureGlassID);
+		box4.setShader(&shaderLighting);
+		box4.setProjectionMatrix(projection);
+		box4.setViewMatrix(view);
+		box4.setScale(glm::vec3(11.0, 10.0, 0.1));
+		glm::mat4 matrixBox186 = glm::translate(glm::mat4(1.0f), glm::vec3(14.0, 06.0, -29.0));
+		matrixBox186 = glm::rotate(matrixBox186, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		box4.render(matrixBox186);
+
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, textureGlassID);
+		box4.setShader(&shaderLighting);
+		box4.setProjectionMatrix(projection);
+		box4.setViewMatrix(view);
+		box4.setScale(glm::vec3(11.0, 10.0, 0.1));
+		glm::mat4 matrixBox187 = glm::translate(glm::mat4(1.0f), glm::vec3(14.0, 17.0, -29.0));
+		matrixBox187 = glm::rotate(matrixBox187, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		box4.render(matrixBox187);
+
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, textureGlassID);
+		box4.setShader(&shaderLighting);
+		box4.setProjectionMatrix(projection);
+		box4.setViewMatrix(view);
+		box4.setScale(glm::vec3(11.0, 10.0, 0.1));
+		glm::mat4 matrixBox188 = glm::translate(glm::mat4(1.0f), glm::vec3(14.0, 27.0, -29.0));
+		matrixBox188 = glm::rotate(matrixBox188, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		box4.render(matrixBox188);
+
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, textureGlassID);
+		box4.setShader(&shaderLighting);
+		box4.setProjectionMatrix(projection);
+		box4.setViewMatrix(view);
+		box4.setScale(glm::vec3(11.0, 10.0, 0.1));
+		glm::mat4 matrixBox189 = glm::translate(glm::mat4(1.0f), glm::vec3(14.0, 37.0, -29.0));
+		matrixBox189 = glm::rotate(matrixBox189, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		box4.render(matrixBox189);
+
+
+		//////VENTANA izquierda2- nueva
+
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, textureGlassID);
+		box4.setShader(&shaderLighting);
+		box4.setProjectionMatrix(projection);
+		box4.setViewMatrix(view);
+		box4.setScale(glm::vec3(13.5, 10.0, 0.1));
+		glm::mat4 matrixBox190 = glm::translate(glm::mat4(1.0f), glm::vec3(14.0, 06.0, -41.0));
+		matrixBox190 = glm::rotate(matrixBox190, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		box4.render(matrixBox190);
+
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, textureGlassID);
+		box4.setShader(&shaderLighting);
+		box4.setProjectionMatrix(projection);
+		box4.setViewMatrix(view);
+		box4.setScale(glm::vec3(13.5, 10.0, 0.1));
+		glm::mat4 matrixBox191 = glm::translate(glm::mat4(1.0f), glm::vec3(14.0, 17.0, -41.0));
+		matrixBox191 = glm::rotate(matrixBox191, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		box4.render(matrixBox191);
+
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, textureGlassID);
+		box4.setShader(&shaderLighting);
+		box4.setProjectionMatrix(projection);
+		box4.setViewMatrix(view);
+		box4.setScale(glm::vec3(13.5, 10.0, 0.1));
+		glm::mat4 matrixBox192 = glm::translate(glm::mat4(1.0f), glm::vec3(14.0, 27.0, -41.0));
+		matrixBox192 = glm::rotate(matrixBox192, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		box4.render(matrixBox192);
+
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, textureGlassID);
+		box4.setShader(&shaderLighting);
+		box4.setProjectionMatrix(projection);
+		box4.setViewMatrix(view);
+		box4.setScale(glm::vec3(13.5, 10.0, 0.1));
+		glm::mat4 matrixBox193 = glm::translate(glm::mat4(1.0f), glm::vec3(14.0, 37.0, -41.0));
+		matrixBox193 = glm::rotate(matrixBox193, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		box4.render(matrixBox193);
+
+
+
+
+
+
+
+		////PILAR-H5
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, textureParedID);
+		box2.setShader(&shaderLighting);
+		box2.setProjectionMatrix(projection);
+		box2.setViewMatrix(view);
+		box2.setPosition(glm::vec3(-4.5, 44.0, -21.6));
+		box2.setScale(glm::vec3(36.9, 2.0, 1.0));
+		box2.render();
+
+		//PILAR IH5
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, textureParedID);
+		box2.setShader(&shaderLighting);
+		box.setProjectionMatrix(projection);
+		box.setViewMatrix(view);
+		box.setScale(glm::vec3(12.0, 2.0, 1.0));
+		glm::mat4 matrixBox156 = glm::translate(glm::mat4(1.0f), glm::vec3(-23.0, 44.0, -29.0));
+		matrixBox156 = glm::rotate(matrixBox156, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		box.render(matrixBox156);
+
+		//PILAR IH4
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, textureParedID);
+		box2.setShader(&shaderLighting);
+		box.setProjectionMatrix(projection);
+		box.setViewMatrix(view);
+		box.setScale(glm::vec3(12.0, 2.0, 1.0));
+		glm::mat4 matrixBox157 = glm::translate(glm::mat4(1.0f), glm::vec3(-23.0, 42.0, -29.0));
+		matrixBox157 = glm::rotate(matrixBox157, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		box.render(matrixBox157);
+
+		////PILAR IH3
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, textureParedID);
+		box2.setShader(&shaderLighting);
+		box.setProjectionMatrix(projection);
+		box.setViewMatrix(view);
+		box.setScale(glm::vec3(12.0, 2.0, 1.0));
+		glm::mat4 matrixBox158 = glm::translate(glm::mat4(1.0f), glm::vec3(-23.0, 32.0, -29.0));
+		matrixBox158 = glm::rotate(matrixBox158, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		box.render(matrixBox158);
+
+		////PILAR IH2
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, textureParedID);
+		box2.setShader(&shaderLighting);
+		box.setProjectionMatrix(projection);
+		box.setViewMatrix(view);
+		box.setScale(glm::vec3(12.0, 2.0, 1.0));
+		glm::mat4 matrixBox159 = glm::translate(glm::mat4(1.0f), glm::vec3(-23.0, 22.0, -29.0));
+		matrixBox159 = glm::rotate(matrixBox159, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		box.render(matrixBox159);
+
+		////PILAR IH1
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, textureParedID);
+		box2.setShader(&shaderLighting);
+		box.setProjectionMatrix(projection);
+		box.setViewMatrix(view);
+		box.setScale(glm::vec3(12.0, 2.0, 1.0));
+		glm::mat4 matrixBox160 = glm::translate(glm::mat4(1.0f), glm::vec3(-23.0, 12.0, -29.0));
+		matrixBox160 = glm::rotate(matrixBox160, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		box.render(matrixBox160);
+
+
+		//PILAR DH5
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, textureParedID);
+		box2.setShader(&shaderLighting);
+		box.setProjectionMatrix(projection);
+		box.setViewMatrix(view);
+		box.setScale(glm::vec3(25.0, 2.0, 1.0));
+		glm::mat4 matrixBox161 = glm::translate(glm::mat4(1.0f), glm::vec3(14.0, 44.0, -35.0));
+		matrixBox161 = glm::rotate(matrixBox161, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		box.render(matrixBox161);
+
+		//PILAR DH4
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, textureParedID);
+		box2.setShader(&shaderLighting);
+		box.setProjectionMatrix(projection);
+		box.setViewMatrix(view);
+		box.setScale(glm::vec3(25.0, 2.0, 1.0));
+		glm::mat4 matrixBox162 = glm::translate(glm::mat4(1.0f), glm::vec3(14.0, 42.0, -35.0));
+		matrixBox162 = glm::rotate(matrixBox162, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		box.render(matrixBox162);
+
+		////PILAR DH3
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, textureParedID);
+		box2.setShader(&shaderLighting);
+		box.setProjectionMatrix(projection);
+		box.setViewMatrix(view);
+		box.setScale(glm::vec3(25.0, 2.0, 1.0));
+		glm::mat4 matrixBox163 = glm::translate(glm::mat4(1.0f), glm::vec3(14.0, 32.0, -35.0));
+		matrixBox163 = glm::rotate(matrixBox163, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		box.render(matrixBox163);
+
+		////PILAR DH2
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, textureParedID);
+		box2.setShader(&shaderLighting);
+		box.setProjectionMatrix(projection);
+		box.setViewMatrix(view);
+		box.setScale(glm::vec3(25.0, 2.0, 1.0));
+		glm::mat4 matrixBox164 = glm::translate(glm::mat4(1.0f), glm::vec3(14.0, 22.0, -35.0));
+		matrixBox164 = glm::rotate(matrixBox164, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		box.render(matrixBox164);
+
+		////PILAR DH1
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, textureParedID);
+		box2.setShader(&shaderLighting);
+		box.setProjectionMatrix(projection);
+		box.setViewMatrix(view);
+		box.setScale(glm::vec3(25.0, 2.0, 1.0));
+		glm::mat4 matrixBox165 = glm::translate(glm::mat4(1.0f), glm::vec3(14.0, 12.0, -35.0));
+		matrixBox165 = glm::rotate(matrixBox165, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		box.render(matrixBox165);
+
+
+		//pilarf
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, textureParedID);
+		box2.setShader(&shaderLighting);
+		box.setProjectionMatrix(projection);
+		box.setViewMatrix(view);
+		box.setScale(glm::vec3(2.0, 44.0, 1.0));
+		glm::mat4 matrixBox166 = glm::translate(glm::mat4(1.0f), glm::vec3(14.0, 23.1, -35.0));
+		matrixBox166 = glm::rotate(matrixBox166, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		box.render(matrixBox166);
+
+
+		//PILARF2
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, textureParedID);
+		box2.setShader(&shaderLighting);
+		box.setProjectionMatrix(projection);
+		box.setViewMatrix(view);
+		box.setScale(glm::vec3(2.0, 44.0, 1.0));
+		glm::mat4 matrixBox167 = glm::translate(glm::mat4(1.0f), glm::vec3(14.0, 23.1, -22.5));
+		matrixBox167 = glm::rotate(matrixBox167, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		box.render(matrixBox167);
+
+
+		//PILARF3
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, textureParedID);
+		box2.setShader(&shaderLighting);
+		box.setProjectionMatrix(projection);
+		box.setViewMatrix(view);
+		box.setScale(glm::vec3(2.0, 44.0, 1.0));
+		glm::mat4 matrixBox168 = glm::translate(glm::mat4(1.0f), glm::vec3(-23.0, 23.1, -22.5));
+		matrixBox168 = glm::rotate(matrixBox168, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		box.render(matrixBox168);
+
+
 		//////////////////////////Laboratorio interior//////////////////////////////////
 
 				//lado izquierdo
@@ -3861,6 +4548,129 @@ void applicationLoop() {
 		matrixSilla7 = glm::rotate(matrixSilla7, glm::radians(45.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 		modelSilla.render(matrixSilla7);
 
+		//dispensador de agua
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, textureDispensadorID);
+		box2.setShader(&shaderLighting);
+		box2.setProjectionMatrix(projection);
+		box2.setViewMatrix(view);
+		box2.setPosition(glm::vec3(-24.0, 3.0, 58.0));
+		box2.setScale(glm::vec3(1.0, 3.0, 1.0));
+		box2.render(18, 6);
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, texturePizarronID);
+		box2.render();
+		//garrafon
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, textureGarrafonID);
+		cylinder.setShader(&shaderTexture);
+		cylinder.setProjectionMatrix(projection);
+		cylinder.setViewMatrix(view);
+		cylinder.setPosition(glm::vec3(-24.0f, 5.5f, 58.0f));
+		cylinder.setScale(glm::vec3(1.0, 2.0, 1.0));
+		cylinder.render(0, cylinder.getSlices()* cylinder.getStacks() * 2 * 3);
+		glBindTexture(GL_TEXTURE_2D, textureWaterID);
+		//para la tapa superior
+		cylinder.render(cylinder.getSlices()* cylinder.getStacks() * 2 * 3, cylinder.getSlices() * 3);
+		//tapa inferior
+		glBindTexture(GL_TEXTURE_2D, textureWaterID);
+		cylinder.render(cylinder.getSlices()* cylinder.getStacks() * 2 * 3 + cylinder.getSlices() * 3, cylinder.getSlices() * 3);
+
+		//brazo
+		glm::mat4 matrixx1 = glm::translate(glm::mat4(1.0f), glm::vec3(27.2, 2.3, 31.8));
+		glm::mat4 matrixs6 = glm::translate(matrixx1, glm::vec3(0.25f, 0.1f, 0.0f));
+		matrixs6 = glm::rotate(matrixs6, rot0, glm::vec3(0.0f, 0.0f, 1.0f));
+		glm::mat4 matrix7 = glm::rotate(matrixs6, 1.6f, glm::vec3(0.0f, 0.0f, 1.0f));
+		glm::mat4 matrixs7 = glm::translate(matrix7, glm::vec3(0.5f, 0.0f, 0.0f));
+		matrixs7 = glm::rotate(matrixs7, rot4, glm::vec3(0.0f, 0.0f, 1.0f));
+		glm::mat4 matrix8 = glm::rotate(matrixs7, -1.5f, glm::vec3(0.0f, 0.0f, 1.0f));
+		matrix8 = glm::translate(matrix8, glm::vec3(0.25f, 0.0f, 0.0f));
+		glm::mat4 matrixs19 = glm::translate(matrix8, glm::vec3(0.3f, 0.0f, 0.0f));
+		matrixs19 = glm::rotate(matrixs19, rot7, glm::vec3(0.0f, 0.0f, 1.0f));
+
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, textureBrazoID);
+		boxm.setShader(&shaderLighting);
+		glm::mat4 matrixd1 = glm::translate(matrixs19, glm::vec3(0.1f, 0.08, 0.0f));
+		matrixd1 = glm::scale(matrixd1, glm::vec3(0.3f, 0.02f, 0.05f));
+		boxm.setProjectionMatrix(projection);
+		boxm.setViewMatrix(view);
+		boxm.render(matrixd1);
+		/*
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, textureBrazoID);
+		boxm2.setShader(&shaderLighting);
+		glm::mat4 matrixd2 = glm::translate(matrixs19, glm::vec3(0.1f, 0.0f, 0.0f));
+		matrixd2 = glm::scale(matrixd2, glm::vec3(0.3f, 0.02f, 0.05f));
+		boxm2.setProjectionMatrix(projection);
+		boxm2.setViewMatrix(view);
+		boxm2.render(matrixd2);
+		*/
+
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, textureBrazoID);
+		boxm3.setShader(&shaderLighting);
+		glm::mat4 matrixd3 = glm::translate(matrixs19, glm::vec3(0.1f, -0.08, 0.0f));
+		matrixd3 = glm::scale(matrixd3, glm::vec3(0.3f, 0.02f, 0.05f));
+		boxm3.setProjectionMatrix(projection);
+		boxm3.setViewMatrix(view);
+		boxm3.render(matrixd3);
+
+
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, textureRojoID);
+		sphere.setShader(&shaderLighting);
+		matrixs19 = glm::scale(matrixs19, glm::vec3(0.01f, 0.01f, 0.01f));
+		sphere.setProjectionMatrix(projection);
+		sphere.setViewMatrix(view);
+		sphere.render(matrixs19);
+
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, textureBrazoID);
+		boxb2.setShader(&shaderTexture);
+		boxb2.setProjectionMatrix(projection);
+		boxb2.setViewMatrix(view);
+		matrix8 = glm::scale(matrix8, glm::vec3(0.5f, 0.15f, 0.15f));
+		boxb2.render(matrix8);
+
+
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, textureRojoID);
+		sphere.setShader(&shaderLighting);
+		matrixs7 = glm::scale(matrixs7, glm::vec3(0.01f, 0.01f, 0.01f));
+		sphere.setProjectionMatrix(projection);
+		sphere.setViewMatrix(view);
+		sphere.render(matrixs7);
+
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, textureBrazoID);
+		boxb1.setShader(&shaderTexture);
+		boxb1.setProjectionMatrix(projection);
+		boxb1.setViewMatrix(view);
+		matrix7 = glm::translate(matrix7, glm::vec3(0.25f, 0.0f, 0.0f));
+		matrix7 = glm::scale(matrix7, glm::vec3(0.5f, 0.15f, 0.15f));
+		boxb1.render(matrix7);
+
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, textureRojoID);
+		sphere.setShader(&shaderLighting);
+		matrixs6 = glm::scale(matrixs6, glm::vec3(0.01f, 0.01f, 0.01f));
+		sphere.setProjectionMatrix(projection);
+		sphere.setViewMatrix(view);
+		sphere.render(matrixs6);
+
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, textureBrazoID);
+		boxb1.setShader(&shaderTexture);
+		boxb1.setProjectionMatrix(projection);
+		boxb1.setViewMatrix(view);
+		matrixx1 = glm::translate(matrixx1, glm::vec3(0.25f, 0.0f, 0.0f));
+		matrixx1 = glm::scale(matrixx1, glm::vec3(0.5f, 0.15f, 0.15f));
+		boxb1.render(matrixx1);
+
+
+		//termina brazo
+
 		/*
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, textureWaterID);
@@ -3905,6 +4715,8 @@ void applicationLoop() {
 		glCullFace(oldCullFaceMode);
 		glDepthFunc(oldDepthFuncMode);
 		shaderCubeTexture.turnOff();
+
+		
 
 		if (finishRotation) {
 			if (direcionAirCraft)
