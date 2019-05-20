@@ -1,4 +1,9 @@
-﻿//glew include
+﻿//Proyecto final - Laboratorio Computación Gráfica e interacción humano - computadora
+//Grupo 06
+//Santiago Santiago Juan
+//Zenteno Maturino Erick Alexis
+
+//glew include
 #include <GL/glew.h>
 
 //std includes
@@ -52,20 +57,10 @@ Shader shaderPointLight;
 Shader shaderSpotLight;
 Shader shaderLighting;
 
-Model modelRock;
 Model modelArbol;
-Model modelAirCraft;
-Model arturito;
-Model modelTrain;
 Model modelPajaro;
-Model modelPersonas;
 Model modelHumano;
-Model modelHombreAdmirando;
 Model modelCpu;
-//Model modelComputer;
-//Model modelLCD;
-//Model modelComputer;
-//Model modelLCD;
 Model modelSilla;
 Model modelMesa;
 Model modelLaptop;
@@ -105,19 +100,6 @@ std::vector<std::vector<glm::mat4>> getKeyFrames(std::string fileName) {
 			while ((pos2 = token1.find(delimiter2)) != std::string::npos) {
 				token2 = token1.substr(0, pos2);
 				aaa[i++] = atof(token2.c_str());
-				/*if (j == 0)
-					transform[i].x = atof(token2.c_str());
-				if (j == 1)
-					transform[i].y = atof(token2.c_str());
-				if (j == 2)
-					transform[i].z = atof(token2.c_str());
-				if (j == 3)
-					transform[i].w = atof(token2.c_str());*/
-					/*j++;
-					if (j > 3) {
-						i++;
-						j = 0;
-					}*/
 				token1.erase(0, pos2 + delimiter2.length());
 			}
 			aaa[i++] = atof(token1.c_str());
@@ -271,47 +253,22 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 	boxWater.init();
 	boxWater.scaleUVS(glm::vec2(1.0, 1.0));
 	box3.init();
-	modelRock.loadModel("../../models/rock/rock.obj");
 	modelArbol.loadModel("../../models/Conifer_1_Obj/Tree_Conifer_1.obj");
-	modelAirCraft.loadModel("../../models/Aircraft_obj/E 45 Aircraft_obj.obj");
 	modelPajaro.loadModel("../../models/Drone-Design/Drone_obj.obj");
-	modelPersonas.loadModel("../../models/together__people/people.obj");
 	modelHumano.loadModel("../../models/Patrick/Patrick.obj");
-	modelHombreAdmirando.loadModel("../../models/30817character007/7.obj");
 	modelSilla.loadModel("../../models/Sillas/source/215219/215219.obj");
 	modelMesa.loadModel("../../models/Table/source/SCP table .obj");
 	modelLaptop.loadModel("../../models/laptop/Laptop_High-Polay_HP_BI_2_obj.obj");
-	//modelLCD.loadModel("../../models/lcd/LCD.obj");
-	//modelComputer.loadModel("../../models/computadora/Comp_and_Floppy.obj");
 
 	camera->setPosition(glm::vec3(0.0f, 15.0f, 50.0f));
 
 	// Textura Ladrillos
 	int imageWidth, imageHeight;
-	Texture texture("../../Textures/texturaLadrillos.jpg");
-	FIBITMAP* bitmap = texture.loadImage(false);
-	unsigned char * data = texture.convertToData(bitmap, imageWidth, imageHeight);
-	glGenTextures(1, &textureID1);
-	glBindTexture(GL_TEXTURE_2D, textureID1);
-	// set the texture wrapping parameters
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// set texture wrapping to GL_REPEAT (default wrapping method)
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	// set texture filtering parameters
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	if (data) {
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imageWidth, imageHeight, 0, GL_BGRA, GL_UNSIGNED_BYTE, data);
-		glGenerateMipmap(GL_TEXTURE_2D);
-	}
-	else
-		std::cout << "Failed to load texture" << std::endl;
-	texture.freeImage(bitmap);
-
 
 	// Texture Goku
-	texture = Texture("../../Textures/hojas.jpg");
-	bitmap = texture.loadImage(false);
-	data = texture.convertToData(bitmap, imageWidth, imageHeight);
+	Texture texture = Texture("../../Textures/hojas.jpg");
+	FIBITMAP* bitmap = texture.loadImage(false);
+	unsigned char * data = texture.convertToData(bitmap, imageWidth, imageHeight);
 	glGenTextures(1, &textureHojasID);
 	glBindTexture(GL_TEXTURE_2D, textureHojasID);
 	// set the texture wrapping parameters
@@ -369,25 +326,6 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 		std::cout << "Failed to load texture" << std::endl;
 	texture.freeImage(bitmap);
 
-	// Textura cuadritos
-	texture = Texture("../../Textures/test.png");
-	bitmap = texture.loadImage(false);
-	data = texture.convertToData(bitmap, imageWidth, imageHeight);
-	glGenTextures(1, &textureID3);
-	glBindTexture(GL_TEXTURE_2D, textureID3);
-	// set the texture wrapping parameters
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// set texture wrapping to GL_REPEAT (default wrapping method)
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	// set texture filtering parameters
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	if (data) {
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imageWidth, imageHeight, 0, GL_BGRA, GL_UNSIGNED_BYTE, data);
-		glGenerateMipmap(GL_TEXTURE_2D);
-	}
-	else
-		std::cout << "Failed to load texture" << std::endl;
-	texture.freeImage(bitmap);
 
 	texture = Texture("../../Textures/cesped.jpg");
 	bitmap = texture.loadImage(false);
@@ -451,24 +389,7 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 	}
 	texture3.freeImage(bitmap3);
 
-	texture = Texture("../../Textures/water2.jpg");
-	bitmap = texture.loadImage(false);
-	data = texture.convertToData(bitmap, imageWidth, imageHeight);
-	glGenTextures(1, &textureWaterID);
-	glBindTexture(GL_TEXTURE_2D, textureWaterID);
-	// set the texture wrapping parameters
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// set texture wrapping to GL_REPEAT (default wrapping method)
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	// set texture filtering parameters
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	if (data) {
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imageWidth, imageHeight, 0, GL_BGRA, GL_UNSIGNED_BYTE, data);
-		glGenerateMipmap(GL_TEXTURE_2D);
-	}
-	else
-		std::cout << "Failed to load texture" << std::endl;
-	texture.freeImage(bitmap);
+	
 
 	texture = Texture("../../Textures/metal.jpg");
 	bitmap = texture.loadImage(false);
@@ -991,7 +912,7 @@ void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mode
 	if (glfwGetKey(window, GLFW_KEY_B) == GLFW_PRESS) {
 		camera->setPitch(pitch2);
 		camera->setYaw(yaw1);
-		camera->setPosition(glm::vec3(27.2, 2.7, 24.8));
+		camera->setPosition(glm::vec3(27.2, 4.7, 24.8));
 		camera->setUp(glm::vec3(0.0, 1.0, 0.0));
 		camera->setFront(glm::vec3(0.0, -compy, -1.0));
 		camera->update();
@@ -1183,22 +1104,7 @@ void applicationLoop() {
 		sphereAnimacion.setViewMatrix(view);
 
 		shaderTexture.turnOn();
-		// Importante si se quiere renderizar modelos y texturas
-		/*
-		glActiveTexture(GL_TEXTURE0);
-		cylinder.setShader(&shaderTexture);
-		cylinder.setProjectionMatrix(projection);
-		cylinder.setViewMatrix(view);
-		cylinder.setPosition(glm::vec3(-3.0f, 2.0f, -3.0f));
-		glBindTexture(GL_TEXTURE_2D, textureHojasID);
-		cylinder.render(0, cylinder.getSlices() * cylinder.getStacks() * 2 * 3);
-		glBindTexture(GL_TEXTURE_2D, textureID1);
-		cylinder.render(cylinder.getSlices() * cylinder.getStacks() * 2 * 3, cylinder.getSlices() * 3);
-		glBindTexture(GL_TEXTURE_2D, textureID3);
-		cylinder.render(cylinder.getSlices() * cylinder.getStacks() * 2 * 3 + cylinder.getSlices() * 3, cylinder.getSlices() * 3);
-		glBindTexture(GL_TEXTURE_2D, 0);
-		shaderTexture.turnOff();
-		*/
+
 
 		// Iluminaci�n
 		glm::mat4 lightModelmatrix = glm::rotate(glm::mat4(1.0f), angle, glm::vec3(1.0f, 0.0f, 0.0f));
@@ -1266,18 +1172,6 @@ void applicationLoop() {
 		matrixAirCraft = glm::rotate(matrixAirCraft, rotationAirCraft, glm::vec3(0, 1, 0));
 		modelPajaro.render(matrixAirCraft);
 
-		//no funciona al moverle en el eje Y
-		/*
-		modelPersonas.setShader(&shaderLighting);
-		modelPersonas.setProjectionMatrix(projection);
-		modelPersonas.setViewMatrix(view);
-		//modelPersonas.setPosition(glm::vec3(0.0f, 25.0f, 45.0f));
-		modelPersonas.setScale(glm::vec3(0.03, 0.03, 0.03));
-		glm::mat4 matrixNano = glm::translate(glm::mat4(1.0f), glm::vec3(NanoX, 0.0f, NanoZ));
-		matrixNano = glm::translate(matrixNano, glm::vec3(-15.0f, 0.0f, 30.0f));
-		matrixNano = glm::rotate(matrixNano, rotationNano, glm::vec3(0, 1, 0));
-		modelPersonas.render(matrixNano);
-		*/
 
 		modelHumano.setShader(&shaderLighting);
 		modelHumano.setProjectionMatrix(projection);
@@ -1288,170 +1182,6 @@ void applicationLoop() {
 		matrixNano = glm::translate(matrixNano, glm::vec3(-13.0f, 1.15f, 25.0f));
 		matrixNano = glm::rotate(matrixNano, rotationNano, glm::vec3(0, 1, 0));
 		modelHumano.render(matrixNano);
-
-		//no hace nada
-		modelHombreAdmirando.setShader(&shaderLighting);
-		modelHombreAdmirando.setProjectionMatrix(projection);
-		modelHombreAdmirando.setViewMatrix(view);
-		modelHombreAdmirando.setPosition(glm::vec3(0.0f, 2.0f, 80.0f));
-		modelHombreAdmirando.setScale(glm::vec3(100.03, 100.03, 100.03));
-		modelHombreAdmirando.render();
-
-
-
-		/*
-		glm::quat firstQuat;
-		glm::quat secondQuat;
-		glm::quat finalQuat;
-		glm::mat4 interpoltaedMatrix;
-		glm::vec4 transformComp1;
-		glm::vec4 transformComp2;
-		glm::vec4 finalTrans;
-
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, textureID3);
-		if (keyFramesBrazo[indexKeyFrameBrazoCurr].size() == 7 && keyFramesBrazo[indexKeyFrameBrazoNext].size() == 7) {
-
-			//matriz de rotacion actual
-			firstQuat = glm::quat_cast(keyFramesBrazo[indexKeyFrameBrazoCurr][0]);
-			secondQuat = glm::quat_cast(keyFramesBrazo[indexKeyFrameBrazoNext][0]);
-			//slerp hace la interpolacion de quaternion (matriz de rotacion)
-			finalQuat = glm::slerp(firstQuat, secondQuat, interpolation);
-			//se convierte el quaternion a una matriz de 4x4
-			interpoltaedMatrix = glm::mat4_cast(finalQuat);
-			//se obteiene la translacion del frame i -1
-			transformComp1 = keyFramesBrazo[indexKeyFrameBrazoCurr][0] * glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
-			//se obteiene la translacion del frame i
-			transformComp2 = keyFramesBrazo[indexKeyFrameBrazoNext][0] * glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
-			// se realiza la interpolacion entre el frame i-1 y el frame i
-			//transformcomp1 es frame i-1
-			//transformcomp2 es frame i
-			finalTrans = (float)(1.0 - interpolation) * transformComp1 + transformComp2 * interpolation;
-			//unimos la matriz de interpolacion del quaternion y la interpolacion de la translacion
-			interpoltaedMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(finalTrans)) * interpoltaedMatrix;
-
-			// Animacion KeyFrames
-			glm::mat4 matrixGlobalAnimation = glm::translate(glm::mat4(1.0f), glm::vec3(4.0f, 2.0f, 0.0f));
-			// Se modela siempre con los ejes de giro en el eje z
-			// Articulacion 1
-			glm::mat4 keyFrameJoint = matrixGlobalAnimation * interpoltaedMatrix;
-			glm::mat4 cylinderMatrixJ0 = glm::rotate(keyFrameJoint, 1.5708f, glm::vec3(1.0, 0.0f, 0.0));
-			cylinderMatrixJ0 = glm::scale(cylinderMatrixJ0, glm::vec3(0.08f, 0.08f, 0.08f));
-			sphereAnimacion.render(cylinderMatrixJ0);
-
-			// Articulacion 2
-			firstQuat = glm::quat_cast(keyFramesBrazo[indexKeyFrameBrazoCurr][1]);
-			secondQuat = glm::quat_cast(keyFramesBrazo[indexKeyFrameBrazoNext][1]);
-			finalQuat = glm::slerp(firstQuat, secondQuat, interpolation);
-			interpoltaedMatrix = glm::mat4_cast(finalQuat);
-			transformComp1 = keyFramesBrazo[indexKeyFrameBrazoCurr][1] * glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
-			transformComp2 = keyFramesBrazo[indexKeyFrameBrazoNext][1] * glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
-			finalTrans = (float)(1.0 - interpolation) * transformComp1 + transformComp2 * interpolation;
-			interpoltaedMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(finalTrans)) * interpoltaedMatrix;
-
-			keyFrameJoint = matrixGlobalAnimation * interpoltaedMatrix;
-			glm::mat4 cylinderMatrixJ1 = glm::rotate(keyFrameJoint, 1.5708f, glm::vec3(1.0, 0.0f, 0.0));
-			cylinderMatrixJ1 = glm::scale(cylinderMatrixJ1, glm::vec3(0.1f, 0.1f, 0.1f));
-			sphereAnimacion.render(cylinderMatrixJ1);
-
-			// Articulacion 3
-			firstQuat = glm::quat_cast(keyFramesBrazo[indexKeyFrameBrazoCurr][2]);
-			secondQuat = glm::quat_cast(keyFramesBrazo[indexKeyFrameBrazoNext][2]);
-			finalQuat = glm::slerp(firstQuat, secondQuat, interpolation);
-			interpoltaedMatrix = glm::mat4_cast(finalQuat);
-			transformComp1 = keyFramesBrazo[indexKeyFrameBrazoCurr][2] * glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
-			transformComp2 = keyFramesBrazo[indexKeyFrameBrazoNext][2] * glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
-			finalTrans = (float)(1.0 - interpolation) * transformComp1 + transformComp2 * interpolation;
-			interpoltaedMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(finalTrans)) * interpoltaedMatrix;
-
-			keyFrameJoint = matrixGlobalAnimation * interpoltaedMatrix;
-			glm::mat4 cylinderMatrixJ2 = glm::rotate(keyFrameJoint, 1.5708f, glm::vec3(1.0, 0.0f, 0.0));
-			cylinderMatrixJ2 = glm::scale(cylinderMatrixJ2, glm::vec3(0.11f, 0.11f, 0.11f));
-			sphereAnimacion.render(cylinderMatrixJ2);
-
-			// Hueso 1
-			glm::mat4 cylinderMatrixL1 = glm::translate(keyFrameJoint, glm::vec3(0.0f, 0.0f, 0.125f));
-			cylinderMatrixL1 = glm::rotate(cylinderMatrixL1, 1.5708f, glm::vec3(1.0, 0.0f, 0.0));
-			cylinderMatrixL1 = glm::scale(cylinderMatrixL1, glm::vec3(0.1f, 0.25f, 0.1f));
-			cylinderAnimacion.render(cylinderMatrixL1);
-
-			// Articulacion 4
-			firstQuat = glm::quat_cast(keyFramesBrazo[indexKeyFrameBrazoCurr][3]);
-			secondQuat = glm::quat_cast(keyFramesBrazo[indexKeyFrameBrazoNext][3]);
-			finalQuat = glm::slerp(firstQuat, secondQuat, interpolation);
-			interpoltaedMatrix = glm::mat4_cast(finalQuat);
-			transformComp1 = keyFramesBrazo[indexKeyFrameBrazoCurr][3] * glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
-			transformComp2 = keyFramesBrazo[indexKeyFrameBrazoNext][3] * glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
-			finalTrans = (float)(1.0 - interpolation) * transformComp1 + transformComp2 * interpolation;
-			interpoltaedMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(finalTrans)) * interpoltaedMatrix;
-
-			keyFrameJoint = matrixGlobalAnimation * interpoltaedMatrix;
-			glm::mat4 cylinderMatrixJ3 = glm::rotate(keyFrameJoint, 1.5708f, glm::vec3(1.0, 0.0f, 0.0));
-			cylinderMatrixJ3 = glm::scale(cylinderMatrixJ3, glm::vec3(0.11f, 0.11f, 0.11f));
-			sphereAnimacion.render(cylinderMatrixJ3);
-
-			// Articulacion 5
-			firstQuat = glm::quat_cast(keyFramesBrazo[indexKeyFrameBrazoCurr][4]);
-			secondQuat = glm::quat_cast(keyFramesBrazo[indexKeyFrameBrazoNext][4]);
-			finalQuat = glm::slerp(firstQuat, secondQuat, interpolation);
-			interpoltaedMatrix = glm::mat4_cast(finalQuat);
-			transformComp1 = keyFramesBrazo[indexKeyFrameBrazoCurr][4] * glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
-			transformComp2 = keyFramesBrazo[indexKeyFrameBrazoNext][4] * glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
-			finalTrans = (float)(1.0 - interpolation) * transformComp1 + transformComp2 * interpolation;
-			interpoltaedMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(finalTrans)) * interpoltaedMatrix;
-
-			keyFrameJoint = matrixGlobalAnimation * interpoltaedMatrix;
-			glm::mat4 cylinderMatrixJ4 = glm::rotate(keyFrameJoint, 1.5708f, glm::vec3(1.0, 0.0f, 0.0));
-			cylinderMatrixJ4 = glm::scale(cylinderMatrixJ4, glm::vec3(0.11f, 0.11f, 0.11f));
-			sphereAnimacion.render(cylinderMatrixJ4);
-
-			// Hueso 2
-			glm::mat4 cylinderMatrixL2 = glm::translate(keyFrameJoint, glm::vec3(0.0f, 0.0f, 0.125f));
-			cylinderMatrixL2 = glm::rotate(cylinderMatrixL2, 1.5708f, glm::vec3(1.0, 0.0f, 0.0));
-			cylinderMatrixL2 = glm::scale(cylinderMatrixL2, glm::vec3(0.1f, 0.25f, 0.1f));
-			cylinderAnimacion.render(cylinderMatrixL2);
-
-			// Articulacion 6
-			firstQuat = glm::quat_cast(keyFramesBrazo[indexKeyFrameBrazoCurr][5]);
-			secondQuat = glm::quat_cast(keyFramesBrazo[indexKeyFrameBrazoNext][5]);
-			finalQuat = glm::slerp(firstQuat, secondQuat, interpolation);
-			interpoltaedMatrix = glm::mat4_cast(finalQuat);
-			transformComp1 = keyFramesBrazo[indexKeyFrameBrazoCurr][5] * glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
-			transformComp2 = keyFramesBrazo[indexKeyFrameBrazoNext][5] * glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
-			finalTrans = (float)(1.0 - interpolation) * transformComp1 + transformComp2 * interpolation;
-			interpoltaedMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(finalTrans)) * interpoltaedMatrix;
-
-			keyFrameJoint = matrixGlobalAnimation * interpoltaedMatrix;
-			glm::mat4 cylinderMatrixJ5 = glm::rotate(keyFrameJoint, 1.5708f, glm::vec3(1.0, 0.0f, 0.0));
-			cylinderMatrixJ5 = glm::scale(cylinderMatrixJ5, glm::vec3(0.11f, 0.11f, 0.11f));
-			sphereAnimacion.render(cylinderMatrixJ5);
-
-		}
-
-		numPasosAnimBrazoCurr++;
-		interpolation = numPasosAnimBrazoCurr / (float)numPasosAnimBrazo;
-
-		if (interpolation >= 1.0) {
-			interpolation = 0.0;
-			numPasosAnimBrazoCurr = 0;
-			indexKeyFrameBrazoCurr = indexKeyFrameBrazoNext;
-			indexKeyFrameBrazoNext++;
-		}
-
-		if (indexKeyFrameBrazoNext > keyFramesBrazo.size() - 1) {
-			indexKeyFrameBrazoCurr = 0;
-			indexKeyFrameBrazoNext = 1;
-		}
-		*/
-
-		/*arturito.setShader(&shaderLighting);
-		arturito.setProjectionMatrix(projection);
-		arturito.setViewMatrix(view);
-		arturito.setScale(glm::vec3(1.0, 1.0, 1.0));
-		glm::mat4 matrixArturito = glm::translate(glm::mat4(1.0f), glm::vec3(0.0, 0.0, aircraftZ));
-		matrixArturito = glm::translate(matrixArturito, glm::vec3(-10.0, 2.0, 15.0));
-		matrixArturito = glm::rotate(matrixArturito, rotationAirCraft, glm::vec3(0, 1, 0));
-		arturito.render(matrixArturito);*/
 
 		//Suelo
 		glActiveTexture(GL_TEXTURE0);
@@ -1482,54 +1212,6 @@ void applicationLoop() {
 		box2.setPosition(glm::vec3(-4.0, 3.55, 35.0));
 		box2.setScale(glm::vec3(8.0, 0.001, 8.0));
 		box2.render();
-
-		//bardas
-
-		/*glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, textureRocaID);
-		box2.setShader(&shaderLighting);
-		box2.setProjectionMatrix(projection);
-		box2.setViewMatrix(view);
-		box2.setPosition(glm::vec3(-2.75, 1.25, 35.5));
-		box2.setScale(glm::vec3(1.5, 2.5, 6.0));
-		box2.render();
-
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, textureRocaID);
-		box2.setShader(&shaderLighting);
-		box2.setProjectionMatrix(projection);
-		box2.setViewMatrix(view);
-		box2.setPosition(glm::vec3(3.0, 1.25, 37.75));
-		box2.setScale(glm::vec3(11.0, 2.5, 1.5));
-		box2.render();
-
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, textureRocaID);
-		box2.setShader(&shaderLighting);
-		box2.setProjectionMatrix(projection);
-		box2.setViewMatrix(view);
-		box2.setPosition(glm::vec3(10.5, 1.25, 36.25));
-		box2.setScale(glm::vec3(3.0, 2.5, 1.5));
-		box2.render();
-
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, textureRocaID);
-		box2.setShader(&shaderLighting);
-		box2.setProjectionMatrix(projection);
-		box2.setViewMatrix(view);
-		box2.setPosition(glm::vec3(12.75, 1.25, 28.5));
-		box2.setScale(glm::vec3(1.5, 2.5, 6.0));
-		box2.render();
-
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, textureRocaID);
-		box2.setShader(&shaderLighting);
-		box2.setProjectionMatrix(projection);
-		box2.setViewMatrix(view);
-		box2.setPosition(glm::vec3(17.5, 1.25, 30.75));
-		box2.setScale(glm::vec3(8.0, 2.5, 1.5));
-		box2.render();*/
-		/////////////////////////aqui empezar� con lo mio
 
 		//derecha1
 		glActiveTexture(GL_TEXTURE0);
@@ -2723,9 +2405,7 @@ void applicationLoop() {
 		box2.setScale(glm::vec3(3, 0.0, 10.0));
 		box2.render();
 
-
-
-		//////////////////////////////laboratorio
+		//////////////////////////////laboratorio//////////////////
 		//pared donde ira la puerta
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, textureParedSalonID);
@@ -3933,11 +3613,6 @@ void applicationLoop() {
 		box4.render(matrixBox193);
 
 
-
-
-
-
-
 		////PILAR-H5
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, textureParedID);
@@ -4577,7 +4252,7 @@ void applicationLoop() {
 		cylinder.render(cylinder.getSlices()* cylinder.getStacks() * 2 * 3 + cylinder.getSlices() * 3, cylinder.getSlices() * 3);
 
 		//brazo
-		glm::mat4 matrixx1 = glm::translate(glm::mat4(1.0f), glm::vec3(27.2, 2.3, 31.8));
+		glm::mat4 matrixx1 = glm::translate(glm::mat4(1.0f), glm::vec3(27.2, 3.65, 31.8));
 		glm::mat4 matrixs6 = glm::translate(matrixx1, glm::vec3(0.25f, 0.1f, 0.0f));
 		matrixs6 = glm::rotate(matrixs6, rot0, glm::vec3(0.0f, 0.0f, 1.0f));
 		glm::mat4 matrix7 = glm::rotate(matrixs6, 1.6f, glm::vec3(0.0f, 0.0f, 1.0f));
@@ -4596,16 +4271,6 @@ void applicationLoop() {
 		boxm.setProjectionMatrix(projection);
 		boxm.setViewMatrix(view);
 		boxm.render(matrixd1);
-		/*
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, textureBrazoID);
-		boxm2.setShader(&shaderLighting);
-		glm::mat4 matrixd2 = glm::translate(matrixs19, glm::vec3(0.1f, 0.0f, 0.0f));
-		matrixd2 = glm::scale(matrixd2, glm::vec3(0.3f, 0.02f, 0.05f));
-		boxm2.setProjectionMatrix(projection);
-		boxm2.setViewMatrix(view);
-		boxm2.render(matrixd2);
-		*/
 
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, textureBrazoID);
@@ -4668,20 +4333,77 @@ void applicationLoop() {
 		matrixx1 = glm::scale(matrixx1, glm::vec3(0.5f, 0.15f, 0.15f));
 		boxb1.render(matrixx1);
 
-
-		//termina brazo
-
-		/*
+		// laboratorio del brazo///////////////
+		//Pared donde está el pizarrón
 		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, textureWaterID);
-		boxWater.setShader(&shaderLighting);
-		boxWater.setProjectionMatrix(projection);
-		boxWater.setViewMatrix(view);
-		boxWater.setPosition(glm::vec3(3.0, 2.0, -5.0));
-		boxWater.setScale(glm::vec3(10.0, 0.001, 10.0));
-		boxWater.offsetUVS(glm::vec2(0.0001, 0.0001));
-		boxWater.render();
-		*/
+		glBindTexture(GL_TEXTURE_2D, textureParedSalonID);
+		box2.setShader(&shaderLighting);
+		box2.setProjectionMatrix(projection);
+		box2.setViewMatrix(view);
+		box2.setPosition(glm::vec3(27.2, 6.5, 41.8));
+		box2.setScale(glm::vec3(25.6f, 13.3, 0.0f));
+		box2.render();
+		//pared enfrente del pizarron
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, textureParedSalonID);
+		box2.setShader(&shaderLighting);
+		box2.setProjectionMatrix(projection);
+		box2.setViewMatrix(view);
+		box2.setPosition(glm::vec3(27.2, 6.7, 21.8));
+		box2.setScale(glm::vec3(25.6, 12.5, 0.1));
+		box2.render();
+		//pared izquierda del pizarron
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, textureParedSalonID);
+		box2.setShader(&shaderLighting);
+		box2.setProjectionMatrix(projection);
+		box2.setViewMatrix(view);
+		box2.setPosition(glm::vec3(39.75, 6.0, 31.6));
+		box2.setScale(glm::vec3(0.01, 10.5, 19.7));
+		box2.render();
+		//pared derecha del pizarron
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, textureParedSalonID);
+		box2.setShader(&shaderLighting);
+		box2.setProjectionMatrix(projection);
+		box2.setViewMatrix(view);
+		box2.setPosition(glm::vec3(14.3, 6.2, 31.6));
+		box2.setScale(glm::vec3(0.01, 9.6, 19.7));
+		box2.render();
+		//techo
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, textureParedSalonID);
+		box2.setShader(&shaderLighting);
+		box2.setProjectionMatrix(projection);
+		box2.setViewMatrix(view);
+		box2.setPosition(glm::vec3(27.2, 13.0, 31.6));
+		box2.setScale(glm::vec3(25.6, 0.1, 19.6));
+		box2.render();
+		//piso
+		glBindTexture(GL_TEXTURE_2D, texturePisoID);
+		box2.setShader(&shaderLighting);
+		box2.setProjectionMatrix(projection);
+		box2.setViewMatrix(view);
+		box2.setPosition(glm::vec3(27.2, 1.3, 31.8));
+		box2.setScale(glm::vec3(25.6, 0.1, 20.1));
+		box2.render();
+		//pizarron
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, texturePizarronID);
+		box2.setShader(&shaderLighting);
+		box2.setProjectionMatrix(projection);
+		box2.setViewMatrix(view);
+		box2.setPosition(glm::vec3(27.2, 6.5, 41.7));
+		box2.setScale(glm::vec3(10, 5, 0.01));
+		box2.render();
+		//Mesa del proyecto
+		modelMesa.setShader(&shaderLighting);
+		modelMesa.setProjectionMatrix(projection);
+		modelMesa.setViewMatrix(view);
+		modelMesa.setPosition(glm::vec3(27.2, 2.3, 31.8));
+		modelMesa.setScale(glm::vec3(3.0, 2.7, 1.0));
+		modelMesa.render();
+
 
 		if (angle > 2 * M_PI)
 			angle = 0.0;
